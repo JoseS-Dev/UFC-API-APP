@@ -39,11 +39,12 @@ export class ModelFighter{
         console.log('Luchador obtenido con éxito');
         
         const {fighter_id: _,is_blocked: __, is_favorite: ___, ...fighterWithoutExtra} = fighter.rows[0];
-        
+        const {fighter_id: ____,id:_____, ...teamWithoutExtra} = team.rows[0];
+        const {fighter_id: ______,id:_______, ...categoryWithoutExtra} = category.rows[0];
         const DataFighter = {
             ...fighterWithoutExtra,
-            team_fighter: team.rows[0],
-            weight_category: category.rows[0]
+            team_fighter: teamWithoutExtra,
+            weight_category: categoryWithoutExtra
         }
         return {data: DataFighter};
     }
@@ -122,7 +123,8 @@ export class ModelFighter{
         }
         // Finalmente, retornamos los datos del nuevo luchador
         console.log('Luchador registrado con éxito');
-        return {data: newFighter.rows[0]};
+        const {user_id:__, is_favorite:___, is_blocked:____,created_at:_____,updated_at:______, ...fighterWithoutExtra} = newFighter.rows[0];
+        return {data: fighterWithoutExtra};
     }
 
     // Método para actualizar los datos de un luchador

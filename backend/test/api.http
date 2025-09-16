@@ -25,3 +25,57 @@ Content-Type: application/json
 {
     "email_user": "joseasantana05@gmail.com"
 }
+
+### Crear un luchador
+POST http://localhost:6300/api/fighters/create
+Content-Type: multipart/form-data; boundary=CustomBoundary
+
+--CustomBoundary
+Content-Disposition: form-data; name="name_fighter"
+
+Jon Jones
+--CustomBoundary
+Content-Disposition: form-data; name="nickname_fighter"
+
+Bones
+--CustomBoundary
+Content-Disposition: form-data; name="age_fighter"
+
+34
+--CustomBoundary
+Content-Disposition: form-data; name="height_fighter"
+
+1.93
+--CustomBoundary
+Content-Disposition: form-data; name="weight_fighter"
+
+106.0
+--CustomBoundary
+Content-Disposition: form-data; name="stance_fighter"
+
+orthodox
+--CustomBoundary
+Content-Disposition: form-data; name="country_fighter"
+
+USA
+--CustomBoundary
+Content-Disposition: form-data; name="image_fighter"; filename="jon_jones.jpg"
+Content-Type: image/jpeg
+
+< ./uploads/jon_jones.jpg
+--CustomBoundary
+Content-Disposition: form-data; name="team_id"
+
+3
+--CustomBoundary
+Content-Disposition: form-data; name="category_id"
+
+6
+--CustomBoundary--
+
+### Obtener todos los luchadores
+GET http://localhost:6300/api/fighters/all
+
+### Obtener un luchador por ID
+GET http://localhost:6300/api/fighters/fighter/2
+

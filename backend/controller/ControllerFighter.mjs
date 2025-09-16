@@ -1,9 +1,10 @@
 import { validateFighter, validateFighterUpdate } from "../validations/SchemaFighter.mjs";
 
-export class ControllerFighter{
+export class ControllerFighters{
     constructor({ModelFighter}){
         this.ModelFighter = ModelFighter;
-    }
+    };
+
     // Controlador para obtener todos los luchadores
     getAllFighters = async (req, res) => {
         try{
@@ -94,7 +95,12 @@ export class ControllerFighter{
         if(!req.file) return res.status(400).json({error: 'La imagen del luchador es obligatoria'});
         const DataFighter = {
             ...req.body,
-            image_fighter: req.file.filename
+            age_fighter: parseInt(req.body.age_fighter),
+            height_fighter: parseFloat(req.body.height_fighter),
+            weight_fighter: parseFloat(req.body.weight_fighter),
+            team_id: req.body.team_id ? parseInt(req.body.team_id) : undefined,
+            category_id: req.body.category_id ? parseInt(req.body.category_id) : undefined,
+            image_fighter: req.file.path
         };
         const validation = validateFighter(DataFighter);
         try{
