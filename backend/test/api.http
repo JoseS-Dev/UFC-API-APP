@@ -1,0 +1,27 @@
+### Registro de un usuario
+POST http://localhost:6300/api/auth/register
+Content-Type: application/json
+
+{
+    "name_user": "Jose Santana",
+    "email_user": "joseasantana05@gmail.com",
+    "password_user": "JSa06...",
+    "username_user": "JoseS-Dev"
+}
+
+### Login de un usuario
+POST http://localhost:6300/api/auth/login
+Content-Type: application/json
+
+{
+    "email_user": "joseasantana05@gmail.com",
+    "password_user": "JSa06..."
+}
+
+### Cerrar Sesión de un usuario
+POST http://localhost:6300/api/auth/logout
+Content-Type: application/json
+
+{
+    "email_user": "joseasantana05@gmail.com"
+}

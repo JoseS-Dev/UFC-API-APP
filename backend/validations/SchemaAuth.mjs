@@ -10,7 +10,7 @@ export const registerSchema = zod.object({
 
 // Defino un esquema de validación para el login del usuario
 export const schemaLogin = zod.object({
-    emaiL_user: zod.string().email(),
+    email_user: zod.string().email(),
     password_user: zod.string().min(6)
 });
 

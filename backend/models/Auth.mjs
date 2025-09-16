@@ -21,7 +21,8 @@ export class ModelUser{
         );
         if(newUser.rowCount === 0) return {error: 'No se ha podido registrar el usuario'};
         console.log('Usuario registrado con éxito');
-        return newUser.rows[0];
+        const {password_user: _,rol_user: __,created_at: ___, ...existingUserWithoutPassword} = newUser.rows[0];
+        return existingUserWithoutPassword;
     }
 
     // Metodo para el login del usuario
@@ -35,7 +36,7 @@ export class ModelUser{
         );
         if(existingUser.rowCount === 0) return {message: "El usuario no existe"};
         // Si el usuario existe, se compara la contraseña
-        const userId = existingUser.rows[0].id_user;
+        const userId = existingUser.rows[0].id;
         const isPasswordValid = await bcrypt.compare(password_user, existingUser.rows[0].password_user);
         if(isPasswordValid){
             // Si la contraseña es valida, se comprueba si el usuario ya habia loguado antes
@@ -58,7 +59,8 @@ export class ModelUser{
                 )
             }
             console.log("Usuario logueado con éxito");
-            return existingUser.rows[0];
+            const {password_user: _,rol_user: __,created_at: ___, ...existingUserWithoutPassword} = existingUser.rows[0];
+            return existingUserWithoutPassword;
         }
     }
 
@@ -71,7 +73,7 @@ export class ModelUser{
             [email_user]
         );
         if(existingUser.rowCount === 0) return {message: "El usuario no existe"};
-        const userId = existingUser.rows[0].id_user;
+        const userId = existingUser.rows[0].id;
         // Actualizamos la tabla session_users para cerrar la sesión del usuario
         const Logout = await db.query(
             `UPDATE session_users SET is_active = false WHERE user_id = $1`,

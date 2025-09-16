@@ -6,13 +6,13 @@ import {RouteUser} from './routes/RouteAuth.mjs';
 
 dotenv.config();
 
-const app = express();
+export const app = express();
 
 app.use(cors());
 app.use(json());
 app.use(morgan('dev'));
 
-app.use('api/auth', RouteUser);
+app.use('/api/auth', RouteUser);
 
 // Montamos el servidor
 app.listen(process.env.PORT, () => {

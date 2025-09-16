@@ -53,6 +53,7 @@ export class ControllerUsers{
             return res.status(200).json({message: loggedOutUser.out});
         }
         catch(error){
+            console.log(error);
             return res.status(500).json({error: 'Error en el servidor'});
         }
     }
