@@ -1,4 +1,5 @@
 import { validateRegister, validateLogin } from "../validations/SchemaAuth.mjs";
+import { generateToken } from "../middlwares/MidAuth.mjs";
 
 export class ControllerUsers{
     constructor({ModelUser}){
@@ -33,7 +34,8 @@ export class ControllerUsers{
             if(LoggedUser.message) return res.status(400).json({message: LoggedUser.message});
             return res.status(200).json({
                 message: 'Usuario logueado con éxito',
-                data: LoggedUser
+                data: LoggedUser,
+                token: generateToken(LoggedUser)
             });
         }
         catch(error){
