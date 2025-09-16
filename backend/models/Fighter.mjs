@@ -8,7 +8,7 @@ export class ModelFighter{
         );
         if(fighters.rowCount === 0) return {message: 'No hay luchadores registrados'};
         console.log("Luchadores obtenidos con éxito");
-        return fighters.rows;
+        return {data: fighters.rows};
     }
 
     // Método para obtener a un luchador por su ID
@@ -57,7 +57,7 @@ export class ModelFighter{
         );
         if(fighter.rowCount === 0) return {message: 'No existe un luchador con ese apodo'};
         console.log('Luchador obtenido con éxito');
-        return fighter.rows[0];
+        return {data: fighter.rows[0]};
     }
 
     // Método para obtener a los luchadores favoritos del usuario
@@ -69,7 +69,7 @@ export class ModelFighter{
         );
         if(favorites.rowCount === 0) return {message: 'El usuario no tiene luchadores favoritos'};
         console.log('Luchadores favoritos obtenidos con éxito');
-        return favorites.rows;
+        return { data:favorites.rows };
     }
 
     // Método para obtener a los luchadores bloqueados
@@ -79,7 +79,7 @@ export class ModelFighter{
         );
         if(blockFighters.rowCount === 0) return {message: 'No hay luchadores bloqueados'};
         console.log('Luchadores bloqueados obtenidos con éxito');
-        return blockFighters.rows;
+        return {data: blockFighters.rows};
     }
 
     // Método para crear un nuevo luchador
@@ -122,7 +122,7 @@ export class ModelFighter{
         }
         // Finalmente, retornamos los datos del nuevo luchador
         console.log('Luchador registrado con éxito');
-        return newFighter.rows[0];
+        return {data: newFighter.rows[0]};
     }
 
     // Método para actualizar los datos de un luchador
@@ -203,7 +203,7 @@ export class ModelFighter{
                 }
             }
             console.log('Luchador actualizado con éxito');
-            return updatedFighter.rows[0];
+            return {data: updatedFighter.rows[0]};
         }
     }
 
