@@ -25,7 +25,6 @@ CREATE TABLE session_users (
 
 CREATE TABLE fighters (
     id SERIAL PRIMARY KEY,
-    user_id INT,
     name_fighter VARCHAR(145) NOT NULL,
     nickname_fighter VARCHAR(145),
     age_fighter INT,
@@ -39,6 +38,16 @@ CREATE TABLE fighters (
     image_fighter VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Tabla intermedia para la relación muchos a muchos entre users y fighters (favoritos)
+CREATE TABLE fighters_users(
+	fighter_id INT,
+	user_id INT,
+	is_favorite BOOLEAN DEFAULT FALSE,
+	PRIMARY KEY(fighter_id,user_id),
+	FOREIGN KEY(fighter_id) REFERENCES fighters(id) ON DELETE CASCADE,
+	FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Tabla de equipos

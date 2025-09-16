@@ -11,7 +11,10 @@ export class ModelFighter{
         );
         if(fighters.rowCount === 0) return {message: 'No hay luchadores registrados'};
         console.log("Luchadores obtenidos con éxito");
-        return {data: fighters.rows};
+        const fightersWithoutExtra = fighters.rows.map(fighter =>
+            omit(fighter, ['is_blocked', 'created_at', 'updated_at'])
+        );
+        return {data: fightersWithoutExtra};
     }
 
     // Método para obtener a un luchador por su ID
@@ -68,12 +71,15 @@ export class ModelFighter{
     static async getFavoriteFightersByUser({user_id}){
         if(!user_id) return {error: 'El ID del usuario no ha sido proporcionado'};
         const favorites = await db.query(
-            `SELECT * FROM fighters WHERE is_favorite = true AND user_id = $1`,
+            `SELECT f.* FROM fighters_users fu JOIN fighters f ON fu.fighter_id = f.id
+            WHERE fu.is_favorite = true AND fu.user_id = $1`,
             [user_id]
         );
         if(favorites.rowCount === 0) return {message: 'El usuario no tiene luchadores favoritos'};
-        console.log('Luchadores favoritos obtenidos con éxito');
-        return { data:favorites.rows };
+        const fightersWithoutExtra = favorites.rows.map(fighter => 
+            omit(fighter, ['is_blocked', 'created_at', 'updated_at'])
+        );
+        return { data: fightersWithoutExtra };
     }
 
     // Método para obtener a los luchadores bloqueados
@@ -230,9 +236,71 @@ export class ModelFighter{
             // Elimino las relaciones en la tabla intermedia 
             await db.query(`DELETE FROM fighters_teams WHERE fighter_id = $1`, [id]);
             await db.query(`DELETE FROM fighters_weight_categories WHERE fighter_id = $1`, [id]);
+            await db.query(`DELETE FROM fighters_users WHERE fighter_id = $1`, [id]);
             console.log('Luchador eliminado con éxito');
             return {message: 'Luchador eliminado con éxito'};
         }
         return {error: 'No se ha podido eliminar el luchador'};
+    };
+
+    // Método para marcar o desmarcar un luchador como favorito de un usuario
+    static async toggleFavoriteFighter({user_id, fighter_id, is_favorite}){
+        if(!user_id) return {error: 'El ID del usuario no ha sido proporcionado'};
+        if(!fighter_id) return {error: 'El ID del luchador no ha sido proporcionado'};
+        if(is_favorite === undefined || is_favorite === null) return {error: 'El estado de favorito no ha sido proporcionado'};
+        // Primero verificamos que el usuario y el luchador existan
+        const existingUser = await db.query(
+            `SELECT * FROM users WHERE id = $1`,
+            [user_id]
+        );
+        const existingFighter = await db.query(
+            `SELECT * FROM fighters WHERE id = $1`,
+            [fighter_id]
+        );
+        if(existingUser.rowCount === 0 || existingFighter.rowCount === 0) return {exists: 'El usuario o el luchador no existen'};
+        // Inserto o actualizo la relación en la tabla intermedia fighters_users
+        const existingRelational = await db.query(
+            `SELECT * FROM fighters_users WHERE user_id = $1 AND fighter_id = $2`,
+            [user_id, fighter_id]
+        );
+        if(existingRelational.rowCount > 0){
+            // Se actauliza la relación existente
+            await db.query(
+                `UPDATE fighters_users SET is_favorite = $1 WHERE user_id = $2 AND fighter_id = $3`,
+                [is_favorite, user_id, fighter_id]
+            );
+            console.log('Estado de favorito actualizado con éxito');
+            return {message: is_favorite ? 'Luchador marcado como favorito con éxito' : 'Luchador desmarcado como favorito con éxito'};
+        }
+        else{
+            // Inserto una nueva relación
+            await db.query(
+                `INSERT INTO fighters_users (user_id, fighter_id, is_favorite) VALUES($1, $2, $3)`,
+                [user_id, fighter_id, is_favorite]
+            );
+            console.log('Luchador marcado como favorito con éxito');
+            return {message: 'Luchador marcado como favorito con éxito'};
+        }
+    }
+
+    // Método para bloquear o desbloquear un luchador (solo admin)
+    static async toggleBlockedFighter({id, is_blocked}){
+        if(!id) return {error: 'El ID del luchador no ha sido proporcionado'};
+        if(is_blocked === undefined || is_blocked === null) return {error: 'El estado de bloqueado no ha sido proporcionado'};
+        // Primero verificamos que el luchador exista
+        const existingFighter = await db.query(
+            `SELECT * FROM fighters WHERE id = $1`,
+            [id]
+        );
+        if(existingFighter.rowCount === 0) return {message: 'No existe un luchador con ese ID'};
+        // Si el luchador existe, se actualiza su estado de bloqueado
+        const updatedFighter = await db.query(
+            `UPDATE fighters SET is_blocked = $1 WHERE id = $2 RETURNING *`,
+            [is_blocked, id]
+        );
+        if(updatedFighter.rowCount === 0) return {error: 'No se ha podido actualizar el estado de bloqueado del luchador'};
+        console.log('Estado de bloqueado actualizado con éxito');
+        const fighterWithoutExtra = omit(updatedFighter.rows[0], ['created_at', 'updated_at']);
+        return { data: fighterWithoutExtra };
     }
 }

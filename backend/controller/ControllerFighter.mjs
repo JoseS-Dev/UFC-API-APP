@@ -1,3 +1,4 @@
+import { exists } from "fs";
 import { validateFighter, validateFighterUpdate } from "../validations/SchemaFighter.mjs";
 
 export class ControllerFighters{
@@ -124,12 +125,17 @@ export class ControllerFighters{
         const { id } = req.params;
         const DataUpdateFighter = {
             ...req.body,
-            image_fighter: req.file.filename
+            age_fighter: req.body.age_fighter ? parseInt(req.body.age_fighter) : undefined,
+            height_fighter: req.body.height_fighter ? parseFloat(req.body.height_fighter) : undefined,
+            weight_fighter: req.body.weight_fighter ? parseFloat(req.body.weight_fighter) : undefined,
+            team_id: req.body.team_id ? parseInt(req.body.team_id) : undefined,
+            category_id: req.body.category_id ? parseInt(req.body.category_id) : undefined,
+            image_fighter: req.file.path
         };
         const validation = validateFighterUpdate(DataUpdateFighter);
         try{
             if(!validation.success) return res.status(400).json({error: validation.message});
-            const updatedFighter = await this.ModelFighter.updatedFighter({id, fighter: validation.data});
+            const updatedFighter = await this.ModelFighter.updateFighter({id, fighter: validation.data});
             if(updatedFighter.error) return res.status(400).json({error: updatedFighter.error});
             if(updatedFighter.message) return res.status(404).json({error: updatedFighter.message});
             return res.status(200).json({
@@ -148,7 +154,41 @@ export class ControllerFighters{
         try{
             const deletedFighter = await this.ModelFighter.deleteFighter({id});
             if(deletedFighter.error) return res.status(400).json({error: deletedFighter.error});
-            if(deletedFighter.message) return res.status(404).json({message: deletedFighter.message});
+            if(deletedFighter.message) return res.status(200).json({message: deletedFighter.message});
+        }
+        catch(error){
+            console.error(error);
+            return res.status(500).json({error: 'Error del servidor'});
+        }
+    }
+
+    // Controlador para marcar o desmarcar un luchador como favorito para un usuario    
+    toggleFavoriteFighter = async (req, res) => {
+        const {fighter_id, user_id, is_favorite} = req.body;
+        try{
+            const favorite = await this.ModelFighter.toggleFavoriteFighter({fighter_id, user_id, is_favorite});
+            if(favorite.error) return res.status(400).json({error: favorite.error});
+            if(favorite.exists) return res.status(409).json({exists: favorite.exists});
+            return res.status(200).json({
+                message: favorite.message
+            });
+        }
+        catch(error){
+            return res.status(500).json({error: 'Error del servidor'});
+        }
+    }
+
+    // Controlador para bloquear o desbloquear un luchador (solo admin)
+    toggleBlockedFighter = async (req, res) => {
+        const { id, is_blocked } = req.body;
+        try{
+            const blockedFighter = await this.ModelFighter.toggleBlockedFighter({id, is_blocked});
+            if(blockedFighter.error) return res.status(400).json({error: blockedFighter.error});
+            if(blockedFighter.message) return res.status(404).json({message: blockedFighter.message});
+            return res.status(200).json({
+                message: is_blocked ? 'Luchador bloqueado con éxito' : 'Luchador desbloqueado con éxito',
+                data: blockedFighter.data
+            });
         }
         catch(error){
             return res.status(500).json({error: 'Error del servidor'});

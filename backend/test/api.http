@@ -79,3 +79,78 @@ GET http://localhost:6300/api/fighters/all
 ### Obtener un luchador por ID
 GET http://localhost:6300/api/fighters/fighter/2
 
+### Marcar o desmarcar un luchador como favorito
+POST http://localhost:6300/api/fighters/favorite
+Content-Type: application/json
+
+{
+    "fighter_id": 2,
+    "user_id": 1,
+    "is_favorite": true
+}
+
+### Obtener luchadores favoritos de un usuario
+GET http://localhost:6300/api/fighters/favorites/1
+
+### Bloquear o desbloquear un luchador (solo admin)
+POST http://localhost:6300/api/fighters/block
+Content-Type: application/json
+
+{
+    "id": 2,
+    "is_blocked": false
+}
+
+### Obtener luchadores bloqueados (solo admin)
+GET http://localhost:6300/api/fighters/blocked
+
+### Actualizar un luchador
+PATCH http://localhost:6300/api/fighters/update/2
+Content-Type: multipart/form-data; boundary=CustomBoundary
+
+--CustomBoundary
+Content-Disposition: form-data; name="name_fighter"
+
+George St-Pierre
+--CustomBoundary
+Content-Disposition: form-data; name="nickname_fighter"
+
+Rush
+--CustomBoundary
+Content-Disposition: form-data; name="age_fighter"
+
+37
+--CustomBoundary
+Content-Disposition: form-data; name="height_fighter"
+
+1.78
+--CustomBoundary
+Content-Disposition: form-data; name="weight_fighter"
+
+84.0
+--CustomBoundary
+Content-Disposition: form-data; name="stance_fighter"
+
+orthodox
+--CustomBoundary
+Content-Disposition: form-data; name="country_fighter"
+
+Canada
+--CustomBoundary
+Content-Disposition: form-data; name="image_fighter"; filename="jon_jones.jpg"
+Content-Type: image/jpeg
+
+< ./uploads/GSP.jpg
+--CustomBoundary
+Content-Disposition: form-data; name="team_id"
+
+2
+--CustomBoundary
+Content-Disposition: form-data; name="category_id"
+
+8
+--CustomBoundary--
+
+### Eliminar un luchador
+DELETE http://localhost:6300/api/fighters/delete/2
+

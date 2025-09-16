@@ -26,3 +26,7 @@ RoutesFighter.post('/create', uploadFighterImage, controllerFighter.createFighte
 RoutesFighter.patch('/update/:id', uploadFighterImage, controllerFighter.updatedFighter);
 // Ruta para eliminar un luchador por su ID
 RoutesFighter.delete('/delete/:id', controllerFighter.deleteFighter);
+// Ruta para marcar o desmarcar un luchador como favorito para un usuario
+RoutesFighter.post('/favorite', controllerFighter.toggleFavoriteFighter);
+// Ruta para bloquear o desbloquear un luchador (solo admin)
+RoutesFighter.post('/block', controllerFighter.toggleBlockedFighter);
