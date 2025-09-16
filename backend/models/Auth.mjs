@@ -78,6 +78,6 @@ export class ModelUser{
             [userId]
         );
         if(Logout.rowCount === 0) return {error: 'Hubo un problema a la hora de cerrar sesión'}
-        return {message: "Cierre de Sesión con éxito"}
+        return {out: "Cierre de Sesión con éxito"}
     }
 }
