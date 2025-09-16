@@ -1,0 +1,35 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for the UFC-API",
+  "homepage": "https://github.com/JoseS-Dev/UFC-API-APP#readme",
+  "bugs": {
+    "url": "https://github.com/JoseS-Dev/UFC-API-APP/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoseS-Dev/UFC-API-APP.git"
+  },
+  "license": "ISC",
+  "author": "JoseS-Dev",
+  "type": "module",
+  "main": "app.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "5.1.0",
+    "nodemon": "3.1.10"
+  },
+  "devDependencies": {
+    "bcryptjs": "3.0.2",
+    "cors": "2.8.5",
+    "dotenv": "17.2.2",
+    "jsonwebtoken": "9.0.2",
+    "morgan": "1.10.1",
+    "multer": "2.0.2",
+    "nodemailer": "7.0.6",
+    "pg": "8.16.3",
+    "zod": "4.1.8"
+  }
+}
