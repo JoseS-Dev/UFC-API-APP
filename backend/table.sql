@@ -41,21 +41,36 @@ CREATE TABLE fighters (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Tabla intermedia para la relación uno a muchos entre fighters y team
+-- Tabla de equipos
 CREATE TABLE teams (
     id SERIAL PRIMARY KEY,
-    fighter_id INT,
     name_team VARCHAR(165) NOT NULL,
-    FOREIGN KEY (fighter_id) REFERENCES fighters(id) ON DELETE CASCADE
 );
 
--- Tabla intermedia para la relación uno a muchos entre fighters y categoria_peso
+-- Tabla intermedia para la relación muchos a muchos entre fighters y teams
+CREATE TABLE fighters_teams (
+    fighter_id INT,
+    team_id INT,
+    PRIMARY KEY (fighter_id, team_id),
+    FOREIGN KEY (fighter_id) REFERENCES fighters(id) ON DELETE CASCADE,
+    FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE CASCADE
+);
+
+-- Tabla de categorias
 CREATE TABLE weight_categories (
     id SERIAL PRIMARY KEY,
-    fighter_id INT,
     name_category weight_class NOT NULL,
-    FOREIGN KEY (fighter_id) REFERENCES fighters(id) ON DELETE CASCADE
 );
+
+-- Tabla intermedia para la relación muchos a muchos entre fighters y weight_categories
+CREATE TABLE fighters_weight_categories (
+    fighter_id INT,
+    category_id INT,
+    PRIMARY KEY (fighter_id, category_id),
+    FOREIGN KEY (fighter_id) REFERENCES fighters(id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES weight_categories(id) ON DELETE CASCADE
+);
+
 -- Tabla intermedia para la relación muchos a muchos entre fighters y fights
 CREATE TABLE fights (
     id SERIAL PRIMARY KEY,
