@@ -1,4 +1,7 @@
 import {db} from '../DB.mjs';
+import pkg from 'lodash';
+
+const { omit } = pkg;
 
 export class ModelFighter{
     // Método para obtener a todos los luchadores
@@ -37,10 +40,10 @@ export class ModelFighter{
         )
         if(category.rowCount === 0) return {data: {...fighter.rows[0], team_fighter: team.rows[0]}, message: 'El luchador no tiene categoria de peso asignada'};
         console.log('Luchador obtenido con éxito');
-        
-        const {fighter_id: _,is_blocked: __, is_favorite: ___, ...fighterWithoutExtra} = fighter.rows[0];
-        const {fighter_id: ____,id:_____, ...teamWithoutExtra} = team.rows[0];
-        const {fighter_id: ______,id:_______, ...categoryWithoutExtra} = category.rows[0];
+
+        const fighterWithoutExtra = omit(fighter.rows[0], ['user_id', 'is_favorite', 'is_blocked', 'created_at', 'updated_at']);
+        const teamWithoutExtra = omit(team.rows[0], ['fighter_id', 'id']);
+        const categoryWithoutExtra = omit(category.rows[0], ['fighter_id', 'id']);
         const DataFighter = {
             ...fighterWithoutExtra,
             team_fighter: teamWithoutExtra,
@@ -123,7 +126,7 @@ export class ModelFighter{
         }
         // Finalmente, retornamos los datos del nuevo luchador
         console.log('Luchador registrado con éxito');
-        const {user_id:__, is_favorite:___, is_blocked:____,created_at:_____,updated_at:______, ...fighterWithoutExtra} = newFighter.rows[0];
+        const fighterWithoutExtra = omit(newFighter.rows[0], ['user_id', 'is_favorite', 'is_blocked', 'created_at', 'updated_at']);
         return {data: fighterWithoutExtra};
     }
 
