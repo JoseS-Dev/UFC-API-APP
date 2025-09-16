@@ -14,7 +14,6 @@ CREATE TABLE users (
     username_user VARCHAR(150) NOT NULL UNIQUE,
     rol_user roles DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE session_users (
@@ -122,5 +121,5 @@ CREATE TABLE notices (
     content_notice TEXT NOT NULL,
     image_notice VARCHAR(255),
     video_notice VARCHAR(255),
-    punlished_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    published_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
