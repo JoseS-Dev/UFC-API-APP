@@ -103,7 +103,7 @@ export class ModelEvent {
         );
         if(updatedEvent.rowCount === 0) return {error: "Error al actualizar el evento"};
         console.log("Evento actualizado con éxito")
-        return {message: `El evennto ${existingEvent.rows[0].name_event} ha sido actualizado correctamente`};
+        return {message: `El evento ${existingEvent.rows[0].name_event} ha sido actualizado correctamente`};
     }
 
     // Eliminar un evento por su ID

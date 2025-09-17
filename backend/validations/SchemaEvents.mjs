@@ -17,3 +17,8 @@ export const SchemaEvents = zod.object({
 export function validateEvents(data){
     return SchemaEvents.safeParse(data);
 }
+
+// Función para validar la data del evento a la hora de actualizar
+export function validateUpdateEvent(data){
+    return SchemaEvents.partial().safeParse(data);
+}
