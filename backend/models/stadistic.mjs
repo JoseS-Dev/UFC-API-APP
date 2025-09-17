@@ -3,7 +3,7 @@ import pkg from 'lodash';
 
 const {omit} = pkg;
 
-export class ModelFighter{
+export class ModelStadistic{
     // Método para obtener estadisticas de un luchador por su ID
     static async getStadisticByFighter({fighter_id}){
         if(!fighter_id) return {error: 'El ID del luchador es obligatorio'};

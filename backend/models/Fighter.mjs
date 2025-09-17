@@ -42,15 +42,24 @@ export class ModelFighter{
             [id]
         )
         if(category.rowCount === 0) return {data: {...fighter.rows[0], team_fighter: team.rows[0]}, message: 'El luchador no tiene categoria de peso asignada'};
+        
+        // Por ultimo obtengo las estadisticas del luchador
+        const stadistics = await db.query(
+            `SELECT * FROM fighters_stadistics WHERE fighter_id = $1`,
+            [id]
+        );
+        if(stadistics.rowCount === 0) return {data: {...fighter.rows[0], team_fighter: team.rows[0], weight_category: category.rows[0]}, message: 'El luchador no tiene estadísticas asignadas'};
+        
         console.log('Luchador obtenido con éxito');
-
         const fighterWithoutExtra = omit(fighter.rows[0], ['user_id', 'is_favorite', 'is_blocked', 'created_at', 'updated_at']);
         const teamWithoutExtra = omit(team.rows[0], ['fighter_id', 'id']);
         const categoryWithoutExtra = omit(category.rows[0], ['fighter_id', 'id']);
+        const stadisticWithoutExtra = omit(stadistics.rows[0], ['id', 'fighter_id']);
         const DataFighter = {
             ...fighterWithoutExtra,
             team_fighter: teamWithoutExtra,
-            weight_category: categoryWithoutExtra
+            weight_category: categoryWithoutExtra,
+            stadistic: stadisticWithoutExtra
         }
         return {data: DataFighter};
     }

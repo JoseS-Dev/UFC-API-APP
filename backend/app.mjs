@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import {RouteUser} from './routes/RouteAuth.mjs';
 import {RoutesFighter} from './routes/RouteFighter.mjs';
+import { RoutesStadistic } from './routes/RouteStadistic.mjs';
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(morgan('dev'));
 
 app.use('/api/auth', RouteUser);
 app.use('/api/fighters', RoutesFighter);
+app.use('/api/stadistics', RoutesStadistic);
 
 // Montamos el servidor
 app.listen(process.env.PORT, () => {

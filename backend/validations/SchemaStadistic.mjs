@@ -25,4 +25,9 @@ export const SchemaStadistic = zod.object({
 // Función para validar las estadísticas de un luchador
 export function validateStadistic(data) {
     return SchemaStadistic.safeParse(data);
+};
+
+// Función para validar las estadisticas de un luchador, a la hora de actualizar
+export function validateStadisticUpdate(data) {
+    return SchemaStadistic.partial().safeParse(data);
 }
