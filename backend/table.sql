@@ -101,7 +101,11 @@ CREATE TABLE stadistics_fighters (
     precission_takedown_fighter DECIMAL(5,2) NOT NULL,
     date_debut_fighter DATE NOT NULL,
     last_fight_fighter DATE,
-    is_winning_ BOOLEAN DEFAULT FALSE
+    knockout_wins_fighter INT DEFAULT 0,
+    submission_wins_fighter INT DEFAULT 0,
+    decision_wins_fighter INT DEFAULT 0,
+    title_wins_fighter INT DEFAULT 0,
+    is_winning_ BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (fighter_id) REFERENCES fighters(id) ON DELETE CASCADE
 )
 
