@@ -4,7 +4,8 @@ CREATE TYPE weight_class AS ENUM (
     'flyweight', 'bantamweight', 'featherweight', 'lightweight', 
     'welterweight', 'middleweight', 'light heavyweight', 
     'heavyweight', 'women\ s division'
-)
+);
+
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -82,14 +83,19 @@ CREATE TABLE fighters_weight_categories (
 
 -- Tabla intermedia para la relación muchos a muchos entre fighters y fights
 CREATE TABLE fights (
-    id SERIAL PRIMARY KEY,
+    event_id INT,
     fighter_red_id INT,
     fighter_blue_id INT,
     fight_order INT NOT NULL,
+    PRIMARY KEY(event_id, fighter_red_id, fighter_blue_id),
     is_title_fight BOOLEAN DEFAULT FALSE,
+    is_main_event BOOLEAN DEFAULT FALSE,
+    is_co_main_event BOOLEAN DEFAULT FALSE,
+    winner_fighter VARCHAR(10) CHECK (winner IN ('red', 'blue', 'draw', 'no contest')),
+    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
     FOREIGN KEY (fighter_red_id) REFERENCES fighters(id) ON DELETE CASCADE,
     FOREIGN KEY (fighter_blue_id) REFERENCES fighters(id) ON DELETE CASCADE
-)
+);
 
 -- tabla intermedia para la relación uno a uno entre fighters y estadisticas del luchador
 CREATE TABLE stadistics_fighters (
@@ -112,12 +118,12 @@ CREATE TABLE stadistics_fighters (
 -- tabla de eventos
 CREATE TABLE events (
     id SERAIL PRIMARY KEY,
-    id_fight INT,
     name_event VARCHAR(175) NOT NULL,
     location_event VARCHAR(175) NOT NULL,
     venue_event VARCHAR(175) NOT NULL,
     date_event DATE NOT NULL,
-    FOREIGN KEY (id_fight) REFERENCES fights(id) ON DELETE CASCADE
+    country_event VARCHAR(170),
+    image_event VARCHAR(255),
 );
 
 -- tabla de leyendas de UFC
