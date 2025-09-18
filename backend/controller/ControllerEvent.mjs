@@ -21,10 +21,10 @@ export class ControllerEvents {
     }
 
     // Controlador para obtener un evento por su ID
-    getEventsById = async (req, res) => {
+    getEventById = async (req, res) => {
         const {id} = req.params;
         try{
-            const event = await this.ModelEvent.getEventsById({id});
+            const event = await this.ModelEvent.getEventById({id});
             if(event.error) return res.status(404).json({error: event.error});
             return res.status(200).json({
                 message: "Evento obtenido con éxito",
@@ -32,6 +32,7 @@ export class ControllerEvents {
             });
         }
         catch(error){
+            console.log(error);
             return res.status(500).json({error: "Error del servidor"});
         }
     }

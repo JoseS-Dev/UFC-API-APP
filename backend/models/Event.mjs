@@ -56,10 +56,10 @@ export class ModelEvent {
             `SELECT * FROM events WHERE name_event = $1 AND date_event = $2`,
             [name_event, date_event]
         );
-        if(existingEvent.rowCount === 0) return {message: "Ya existe un evento con el mismo nombre y fecha"};
+        if(existingEvent.rowCount > 0) return {message: "Ya existe un evento con el mismo nombre y fecha"};
         // Si no existe, se crea el nuevo evento
         const newEvent = await db.query(
-            `INSERT INTO events (name_event, location_event, venue_event, date_event, country_event. image_event)
+            `INSERT INTO events (name_event, location_event, venue_event, date_event, country_event, image_event)
             VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
             [name_event, location_event, venue_event, date_event, country_event, image_event]
         );

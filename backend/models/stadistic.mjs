@@ -14,7 +14,7 @@ export class ModelStadistic{
         if(fighterExists.rows.length === 0) return {message: 'El luchador no existe'};
         // Se obtienen las estadisticas del luchador
         const stadistic = await db.query(
-            `SELECT * FROM fighters_stadistics WHERE fighter_id = $1`,
+            `SELECT * FROM stadistics_fighters WHERE fighter_id = $1`,
             [fighter_id]
         );
         if(stadistic.rows.length === 0) return {message: 'El luchador no tiene estadísticas'};
@@ -32,7 +32,7 @@ export class ModelStadistic{
     static async getStadisticByRanking({ranking_fighter}){
         if(!ranking_fighter) return {error: 'El ranking del luchador es obligatorio'};
         const stadistic = await db.query(
-            `SELECT fs.*, f.* FROM fighters_stadistics fs
+            `SELECT fs.*, f.* FROM stadistics_fighters fs
             JOIN fighters f ON fs.fighter_id = f.id
             WHERE fs.ranking_fighter = $1`,
             [ranking_fighter]
@@ -46,8 +46,8 @@ export class ModelStadistic{
         if(!fighter_id || !stadistic) return {error: 'El ID del luchador y las estadísticas son obligatorios'};
         const {
             streak_fighter, ranking_fighter, precission_strike_fighter, precission_takedown_fighter,
-            date_debut_fighter, last_fight_fighter, knockout_wins_fighter, submission_wins_fighter,
-            decision_wins_fighter, title_wins_fighter
+            date_debut_fighter, last_fight_fighter, knockout_win_fighter, submission_win_fighter,
+            decision_win_fighter, title_wins_fighter
         } = stadistic;
         // Se verifica si el luchador existe
         const existingFighter = await db.query(
@@ -56,15 +56,15 @@ export class ModelStadistic{
         if(existingFighter.rowCount > 0){
             // Si el luchador existe, se crean las estadísticas
             const newStatistic = await db.query(
-                `INSERT INTO fighters_stadistics
+                `INSERT INTO stadistics_fighters
                 (fighter_id, streak_fighter, ranking_fighter, precission_strike_fighter, precission_takedown_fighter,
-                date_debut_fighter, last_fight_fighter, knockout_wins_fighter, submission_wins_fighter,
-                decision_wins_fighter, title_wins_fighter)
+                date_debut_fighter, last_fight_fighter, knockout_win_fighter, submission_win_fighter,
+                decision_win_fighter, title_wins_fighter)
                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
                 RETURNING *`,
                 [fighter_id, streak_fighter, ranking_fighter, precission_strike_fighter, precission_takedown_fighter,
-                date_debut_fighter, last_fight_fighter, knockout_wins_fighter, submission_wins_fighter,
-                decision_wins_fighter, title_wins_fighter]
+                date_debut_fighter, last_fight_fighter, knockout_win_fighter, submission_win_fighter,
+                decision_win_fighter, title_wins_fighter]
             );
             if(newStatistic.rowCount === 0) return {error: 'Error al crear las estadísticas del luchador'};
             const stadisticWithoutExtra = omit(newStatistic.rows[0], ['id']);
@@ -78,9 +78,9 @@ export class ModelStadistic{
         if(!fighter_id || !stadistic) return {error: 'El ID del luchador y las estadísticas son obligatorios'};
         const allowedFields = [
             'streak_fighter', 'ranking_fighter', 'precission_strike_fighter',
-            'precission_takedown_fighter', 'date_debut_fighter', 'last_fighter_fighter',
-            'date_debut_fighter', 'knockout_wins_fighter', 'submission_wins_fighter',
-            'decision_wins_fighter', 'title_wins_fighter'
+            'precission_takedown_fighter', 'date_debut_fighter', 'last_fight_fighter',
+            'date_debut_fighter', 'knockout_win_fighter', 'submission_win_fighter',
+            'decision_win_fighter', 'title_wins_fighter'
         ];
 
         const fieldsUpdate = {};
@@ -95,20 +95,25 @@ export class ModelStadistic{
             `SELECT * FROM fighters WHERE id = $1`, [fighter_id]
         );
         const existingStadistic = await db.query(
-            `SELECT * FROM fighters_stadistics WHERE fighter_id = $1`, [fighter_id]
+            `SELECT * FROM stadistics_fighters WHERE fighter_id = $1`, [fighter_id]
         );
         if(existingFighter.rowCount > 0 && existingStadistic.rowCount > 0){
             // si el luchador y sus estadisticas existen, se procede a actaulizarlas
             const setFields = [];
             const values = [];
+            
+            
 
             Object.entries(fieldsUpdate).forEach(([key, value], index) => {
                 setFields.push(`${key} = $${index + 1}`);
                 values.push(value);
+                
             })
             values.push(fighter_id);
+            console.log(setFields, values);
             const updatedstadistic = await db.query(
-                `UPDATE fighters_stadistics SET ${setFields.join(', ')} WHERE fighter_id = $${values.length} `
+                `UPDATE stadistics_fighters SET ${setFields.join(', ')} WHERE fighter_id = $${values.length} `,
+                values
             )
             if(updatedstadistic.rowCount === 0) return {error: 'Error al actualizar las estadísticas del luchador'};
             return {message: `Estadísticas actualizadas correctamente ${existingFighter.rows[0].name_fighter}`};
@@ -121,11 +126,11 @@ export class ModelStadistic{
         if(!fighter_id) return {error: 'El ID del luchador es obligatorio'};
         // Se verifica si existe el luchador y sus estadisticas
         const existingFighter = await db.query(`SELECT * FROM fighters WHERE id = $1`, [fighter_id]);
-        const existingStadistic = await db.query(`SELECT * FROM fighters_stadistics WHERE fighter_id = $1`, [fighter_id]);
+        const existingStadistic = await db.query(`SELECT * FROM stadistics_fighters WHERE fighter_id = $1`, [fighter_id]);
         if(existingFighter.rowCount > 0 && existingStadistic.rowCount > 0){
             // Si el luchador y sus estadisticas existen, se procede a eliminarlas
             const deletedstadistic = await db.query(
-                `DELETE FROM fighters_stadistics WHERE fighter_id = $1`, 
+                `DELETE FROM stadistics_fighters WHERE fighter_id = $1`, 
                 [fighter_id]
             );
             if(deletedstadistic.rowCount === 0) return {error: 'Error al eliminar las estadísticas del luchador'};

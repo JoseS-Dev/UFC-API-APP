@@ -27,14 +27,9 @@ export class ControllerFighters{
         try{
             const fighter = await this.ModelFighter.getFighterById({id});
             if(fighter.error) return res.status(400).json({error: fighter.error});
-            if(fighter.message) return res.status(404).json({error: fighter.message});
-            if(fighter.message && fighter.data) return res.status(200).json({
-                message: fighter.message,
-                data: fighter.data
-            });
-            return res.status(200).json({
-                message: 'Luchador obtenido correctamente',
-                data: fighter.data
+            if(fighter.message || fighter.data) return res.status(200).json({
+                message: fighter.message || 'Luchador obtenido correctamente',
+                data: fighter.data || null
             });
         }
         catch(error){

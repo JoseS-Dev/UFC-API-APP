@@ -45,7 +45,7 @@ export class ModelFighter{
         
         // Por ultimo obtengo las estadisticas del luchador
         const stadistics = await db.query(
-            `SELECT * FROM fighters_stadistics WHERE fighter_id = $1`,
+            `SELECT * FROM stadistics_fighters WHERE fighter_id = $1`,
             [id]
         );
         if(stadistics.rowCount === 0) return {data: {...fighter.rows[0], team_fighter: team.rows[0], weight_category: category.rows[0]}, message: 'El luchador no tiene estadísticas asignadas'};

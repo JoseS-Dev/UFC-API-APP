@@ -11,7 +11,7 @@ RoutesStadistic.get('/fighter/:fighter_id', controllerStadistic.getStadisticByFi
 // Ruta para obtener las estadisticas de un luchador por su ranking en la UFC
 RoutesStadistic.get('/ranking/:ranking_fighter', controllerStadistic.getStadisticByRanking);
 // Ruta para crear las estadisticas de un luchador (solo admin)
-RoutesStadistic.post('/create', controllerStadistic.createStadistic);
+RoutesStadistic.post('/create/:fighter_id', controllerStadistic.createStadistic);
 // Ruta para actualizar las estadisticas de un luchador (solo admin)
 RoutesStadistic.patch('/update/:fighter_id', controllerStadistic.updateStadistic);
 // Ruta para eliminar las estadisticas de un luchador (solo admin)
