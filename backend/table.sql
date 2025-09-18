@@ -129,7 +129,6 @@ CREATE TABLE events (
 -- tabla de leyendas de UFC
 CREATE TABLE legends_fighters (
     id SERIAL PRIMARY KEY,
-    user_id INT,
     name_legend VARCHAR(175) NOT NULL,
     nickname_legend VARCHAR(175),
     image_legend VARCHAR(255),
@@ -141,12 +140,21 @@ CREATE TABLE legends_fighters (
     title_win_legend INT DEFAULT 0,
     trophys_legend INT DEFAULT 0,
     description_legend TEXT,
-    image_legend VARCHAR(255),
     date_debut_legend DATE NOT NULL,
     date_retirement_legend DATE,
-    is_hall_of_fame BOOLEAN DEFAULT FALSE,
-    period_active_legend VARCHAR(100), 
+    period_active_legend VARCHAR(100)
 );
+
+-- Tabla intermedia para la relación muchos a muchos entre legends_fighters y users
+CREATE TABLE legends_users (
+    legend_id INT,
+    user_id INT,
+    is_favorite BOOLEAN DEFAULT FALSE,
+    PRIMARY KEY (legend_id, user_id),
+    FOREIGN KEY (legend_id) REFERENCES legends_fighters(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 
 -- tabla de noticias
 CREATE TABLE notices (
