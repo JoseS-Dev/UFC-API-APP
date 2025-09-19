@@ -6,6 +6,7 @@ import { RouteUser } from './routes/RouteAuth.mjs';
 import { RoutesFighter } from './routes/RouteFighter.mjs';
 import { RoutesStadistic } from './routes/RouteStadistic.mjs';
 import { RoutesEvent } from './routes/RouteEvent.mjs';
+import { RoutesLegend } from './routes/RouteLegend.mjs';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use('/api/auth', RouteUser);
 app.use('/api/fighters', RoutesFighter);
 app.use('/api/stadistics', RoutesStadistic);
 app.use('/api/events', RoutesEvent);
+app.use('/api/legends', RoutesLegend);
 
 // Montamos el servidor
 app.listen(process.env.PORT, () => {
