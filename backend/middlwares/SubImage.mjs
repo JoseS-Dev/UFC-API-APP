@@ -37,10 +37,13 @@ export function configureMulterUpload(directory){
 // Configuración para subir imágenes de luchadores
 const uploadDir = path.resolve('uploads/fighters');
 const uploadDirEvents = path.resolve('uploads/events');
+const uploadDirLegends = path.resolve('uploads/legends');
 
 const multerImage = configureMulterUpload(uploadDir);
 const multerImageEvents = configureMulterUpload(uploadDirEvents);
+const multerImageLegends = configureMulterUpload(uploadDirLegends);
 
 // Middleware para manejar la subida de una imagen de luchador
 export const uploadFighterImage = multerImage.single('image_fighter');
 export const uploadEventImage = multerImageEvents.single('image_event');
+export const uploadLegendImage = multerImageLegends.single('image_legend');

@@ -89,7 +89,7 @@ export class ModelLegend {
             `SELECT * FROM legends_fighters WHERE nickname_legend = $1`,
             [nickname_legend]
         );
-        if(existingLegend.rowCount > 0) return {error: 'La leyenda ya existe'};
+        if(existingLegend.rowCount > 0) return {message: 'La leyenda ya existe'};
         // Si no existe, se inserta en la base de datos
         const newLegend = await db.query(
             `INSERT INTO legends_fighters(name_legend, nickname_legend, image_legend,
@@ -104,7 +104,7 @@ export class ModelLegend {
                 date_retirement_legend, period_active_legend
             ]
         )
-        if(newLegend.rowCount === 0) return {error: 'Error al crear la leyenda'};
+        if(newLegend.rowCount === 0) return {message: 'Error al crear la leyenda'};
         return {data: newLegend.rows[0]};
     }
 
