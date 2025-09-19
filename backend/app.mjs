@@ -7,6 +7,7 @@ import { RoutesFighter } from './routes/RouteFighter.mjs';
 import { RoutesStadistic } from './routes/RouteStadistic.mjs';
 import { RoutesEvent } from './routes/RouteEvent.mjs';
 import { RoutesLegend } from './routes/RouteLegend.mjs';
+import { RouteNotices } from './routes/RouteNotice.mjs';
 
 dotenv.config();
 
@@ -14,6 +15,9 @@ export const app = express();
 
 app.use('/uploads/fighters', express.static('uploads/fighters'));
 app.use('/uploads/events', express.static('uploads/events'));
+app.use('/uploads/legends', express.static('uploads/legends'));
+app.use('/uploads/videos', express.static('uploads/videos'));
+app.use('/uploads/notices', express.static('uploads/notices'));
 
 app.use(cors());
 app.use(json());
@@ -24,6 +28,7 @@ app.use('/api/fighters', RoutesFighter);
 app.use('/api/stadistics', RoutesStadistic);
 app.use('/api/events', RoutesEvent);
 app.use('/api/legends', RoutesLegend);
+app.use('/api/notices', RouteNotices);
 
 // Montamos el servidor
 app.listen(process.env.PORT, () => {

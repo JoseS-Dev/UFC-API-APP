@@ -261,6 +261,211 @@ GET http://localhost:6300/api/events/country/USA
 ### Eliminar un evento
 DELETE http://localhost:6300/api/events/event/delete/2
 
+### Crear una leyenda
+POST http://localhost:6300/api/legends/create
+Content-Type: multipart/form-data; boundary=CustomBoundary
+
+--CustomBoundary
+Content-Disposition: form-data; name="name_legend"
+
+George St-Pierre
+--CustomBoundary
+Content-Disposition: form-data; name="nickname_legend"
+
+Rush
+--CustomBoundary
+Content-Disposition: form-data; name="weight_legend"
+
+37
+--CustomBoundary
+Content-Disposition: form-data; name="height_legend"
+
+1.78
+--CustomBoundary
+Content-Disposition: form-data; name="stance_legend"
+
+orthodox
+--CustomBoundary
+Content-Disposition: form-data; name="country_legend"
+
+Canada
+--CustomBoundary
+Content-Disposition: form-data; name="streak_legend"
+
+28-3-0
+--CustomBoundary
+Content-Disposition: form-data; name="image_legend"; filename="GSP.jpg"
+Content-Type: image/jpeg
+
+< ./uploads/GSP.jpg
+--CustomBoundary
+Content-Disposition: form-data; name="description_legend"
+
+Considered one of the greatest mixed martial artists of all time, George St-Pierre is a former UFC Welterweight Champion known for his well-rounded skills, strategic fighting style, and sportsmanship both inside and outside the octagon.
+--CustomBoundary
+Content-Disposition: form-data; name="title_win_legend"
+
+11
+--CustomBoundary
+Content-Disposition: form-data; name="trophys_legend"
+
+13
+--CustomBoundary
+Content-Disposition: form-data; name="date_debut_legend"
+
+2004-06-05
+--CustomBoundary
+Content-Disposition: form-data; name="date_retirement_legend"
+
+2019-11-26
+--CustomBoundary
+Content-Disposition: form-data; name="period_active_legend"
+
+2004-2019
+--CustomBoundary--
+
+### Marcar o desmarcar una leyenda como favorita para un usuario
+POST http://localhost:6300/api/legends/favorite
+Content-Type: application/json
+
+{
+    "legend_id": 2,
+    "user_id": 1,
+    "is_favorite": false
+}
+
+### Crear una leyenda
+PATCH http://localhost:6300/api/legends/update/2
+Content-Type: multipart/form-data; boundary=CustomBoundary
+
+--CustomBoundary
+Content-Disposition: form-data; name="name_legend"
+
+George St-Pierre
+--CustomBoundary
+Content-Disposition: form-data; name="nickname_legend"
+
+Rush
+--CustomBoundary
+Content-Disposition: form-data; name="weight_legend"
+
+39
+--CustomBoundary
+Content-Disposition: form-data; name="height_legend"
+
+1.78
+--CustomBoundary
+Content-Disposition: form-data; name="stance_legend"
+
+orthodox
+--CustomBoundary
+Content-Disposition: form-data; name="country_legend"
+
+Canada
+--CustomBoundary
+Content-Disposition: form-data; name="streak_legend"
+
+31-3-0
+--CustomBoundary
+Content-Disposition: form-data; name="image_legend"; filename="GSP.jpg"
+Content-Type: image/jpeg
+
+< ./uploads/GSP.jpg
+--CustomBoundary
+Content-Disposition: form-data; name="description_legend"
+
+Considered one of the greatest mixed martial artists of all time, George St-Pierre is a former UFC Welterweight Champion known for his well-rounded skills, strategic fighting style, and sportsmanship both inside and outside the octagon.
+--CustomBoundary
+Content-Disposition: form-data; name="title_win_legend"
+
+11
+--CustomBoundary
+Content-Disposition: form-data; name="trophys_legend"
+
+13
+--CustomBoundary
+Content-Disposition: form-data; name="date_debut_legend"
+
+2004-06-05
+--CustomBoundary
+Content-Disposition: form-data; name="date_retirement_legend"
+
+2019-11-26
+--CustomBoundary
+Content-Disposition: form-data; name="period_active_legend"
+
+2004-2019
+--CustomBoundary--
+
+### Obtener todas las leyendas
+GET http://localhost:6300/api/legends/all
+
+### Obtener una leyenda por ID
+GET http://localhost:6300/api/legends/legend/2
+
+### Obtener leyendas favoritas de un usuario
+GET http://localhost:6300/api/legends/favorites/1
+
+### Eliminar una leyenda
+DELETE http://localhost:6300/api/legends/delete/2
+
+### Crear una noticia
+POST http://localhost:6300/api/notices/create
+Content-Type: multipart/form-data; boundary=CustomBoundary
+
+--CustomBoundary
+Content-Disposition: form-data; name="title_notice"
+
+UFC 300 Set to Feature Historic Matchup
+--CustomBoundary
+Content-Disposition: form-data; name="content_notice"
+
+The UFC is gearing up for a monumental event with UFC 300, scheduled to take place on November 2, 2024, at the T-Mobile Arena in Las Vegas, NV. This event promises to deliver an unforgettable night of fights, including a historic matchup that has fans buzzing with excitement.
+--CustomBoundary
+Content-Disposition: form-data; name="image_notice"; filename="UFC300.jpg"
+Content-Type: image/jpeg
+
+< ./uploads/UFC300.jpg
+--CustomBoundary
+Content-Disposition: form-data; name="video_notice"; filename="UFC300.mp4"
+Content-Type: video/mp4
+
+< ./uploads/UFC300.mp4
+--CustomBoundary--
+
+### Actualizar una noticia
+PATCH http://localhost:6300/api/notices/update/1
+Content-Type: multipart/form-data; boundary=CustomBoundary
+
+--CustomBoundary
+Content-Disposition: form-data; name="title_notice"
+
+UFC 300 Set to Feature Historic Matchup
+--CustomBoundary
+Content-Disposition: form-data; name="content_notice"
+
+The UFC is gearing up for a monumental event with UFC 300, scheduled to take place on November 2, 2024, at the T-Mobile Arena in Las Vegas, NV. This event promises to deliver an unforgettable night of fights, including a historic matchup that has fans buzzing with excitement.
+--CustomBoundary
+Content-Disposition: form-data; name="image_notice"; filename="UFC300.jpg"
+Content-Type: image/jpeg
+
+< ./uploads/UFC301.jpg
+--CustomBoundary
+Content-Disposition: form-data; name="video_notice"; filename="UFC300.mp4"
+Content-Type: video/mp4
+
+< ./uploads/UFC301.mp4
+--CustomBoundary--
+
+### Obtener todas las noticias
+GET http://localhost:6300/api/notices/all
+
+### Obtener una noticia por ID
+GET http://localhost:6300/api/notices/notice/1
+
+### Eliminar una noticia
+DELETE http://localhost:6300/api/notices/delete/1
+
 
 
 

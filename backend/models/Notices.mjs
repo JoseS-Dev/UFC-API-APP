@@ -28,7 +28,7 @@ export class ModelNotice{
         // Se inserta la nueva noticia
         const newNotice = await db.query(
             `INSERT INTO notices (title_notice, content_notice, image_notice, video_notice)
-            VALUES($1,$2,$3,$4) RETURNNING *`,
+            VALUES($1,$2,$3,$4) RETURNING *`,
             [title_notice, content_notice, image_notice, video_notice]
         );
         if(newNotice.rowCount === 0) return {error: 'No se pudo crear la noticia'};

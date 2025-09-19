@@ -59,6 +59,7 @@ export class ControllerNotices {
             });
         }
         catch(error){
+            console.error(error);
             return res.status(500).json({message: 'Error Interno del servidor'})
         }
     }

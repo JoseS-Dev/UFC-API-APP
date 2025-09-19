@@ -76,11 +76,11 @@ export class ModelLegend {
     }
 
     // Método para crear una nueva leyenda
-    static async createlegend({legend}){
+    static async createLegend({legend}){
         if(!legend) return {error: 'Datos de leyenda son requeridos'};
         const { 
             name_legend, nickname_legend, image_legend, weight_legend,
-            height_legend, stance_legend, country_legend, streak_Legend,
+            height_legend, stance_legend, country_legend, streak_legend,
             title_win_legend, trophys_legend, description_legend, date_debut_legend,
             date_retirement_legend, period_active_legend
         } = legend;
@@ -99,7 +99,7 @@ export class ModelLegend {
             $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`,
             [
                 name_legend, nickname_legend, image_legend, weight_legend,
-                height_legend, stance_legend, country_legend, streak_Legend,
+                height_legend, stance_legend, country_legend, streak_legend,
                 title_win_legend, trophys_legend, description_legend, date_debut_legend,
                 date_retirement_legend, period_active_legend
             ]
@@ -164,6 +164,8 @@ export class ModelLegend {
             [id]
         );
         if(deletedLegend.rowCount === 0) return {error: 'Error al eliminar la leyenda'};
+        // Elimino todas las relaciones con la tabla legends_users
+        await db.query(`DELETE FROM legends_users WHERE legend_id = $1`, [id]);
         return { message: `La leyenda ${existingLegend.rows[0].name_legend} ha sido eliminada` };
     }
 }

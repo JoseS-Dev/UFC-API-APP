@@ -109,6 +109,7 @@ export class ControllerLegends {
             });
         }
         catch(error){
+            console.log(error);
             return res.status(500).json({error: 'Error del servidor'});
         }
     }
@@ -128,13 +129,14 @@ export class ControllerLegends {
         const validation = validateLegendUpdateData(LegendData);
         try{
             if(!validation.success) return res.status(400).json({error: validation.error});
-            const updatedLegend = await this.ModelLegend.updatedLegend({id, legend: validation.data});
-            if(updatedLegend.error) return res.status(400).json({error: updated.error});
+            const updatedLegend = await this.ModelLegend.updateLegend({id, legend: validation.data});
+            if(updatedLegend.error) return res.status(400).json({error: updatedLegend.error});
             return res.status(200).json({
                 message: updatedLegend.message
             });
         }
         catch(error){
+            console.log(error);
             return res.status(500).json({error: 'Error del servidor'});
         }
     }
