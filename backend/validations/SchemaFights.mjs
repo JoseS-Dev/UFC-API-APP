@@ -9,7 +9,7 @@ export const SchemaFight = zod.object({
     is_title_fight: zod.boolean().optional(),
     is_main_event: zod.boolean().optional(),
     is_co_main_event: zod.boolean().optional(),
-    weight_class: zod.string().optional(),
+    weight_fight: zod.string().optional(),
     winner_fighter: zod.enum(['red', 'blue', 'draw', 'no contest']).optional()
 });
 

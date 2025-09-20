@@ -7,17 +7,33 @@ export class ModelFight {
     // Método para obtener todas las peleas
     static async getAllFights(){
         const fights = await db.query(
-            `SELECT e.*, fr.*, fb.*, r.* FROM fights r
-            JOIN events e ON r.event_id = e.id
-            JOIN fighters fr ON r.fighter_red_id = fr.id
-            JOIN fighters fb ON r.fighter_blue_id = fb.id;`
+            `SELECT e.*, r.* FROM fights r
+            JOIN events e ON r.event_id = e.id`
         );
         if(fights.rowCount === 0) return {message: 'No hay peleas registradas'};
+        // Ahora vamos a recorrer la lista de la pelea para obtener a los luchadores
+        for(const fight of fights.rows){
+            const fighterRed = await db.query(
+                `SELECT * FROM fighters WHERE id = $1`,
+                [fight.fighter_red_id]
+            );
+            const fighterBlue = await db.query(
+                `SELECT * FROM fighters WHERE id = $1`,
+                [fight.fighter_blue_id]
+            );
+            fight.fighter_red = omit(fighterRed.rows[0], [
+                'created_at', 'updated_at', 'is_champion', 'is_blocked', 'is_favorite',
+                'id'
+            ])
+            fight.fighter_blue = omit(fighterBlue.rows[0], [
+                'created_at', 'updated_at', 'is_champion', 'is_blocked', 'is_favorite',
+                'id'
+            ]);
+        }
         const sanitizedFights = fights.rows.map(fight =>
             omit(fight, [
-                'event_id', 'fighter_red_id', 'fighter_blue_id',
-                'created_at', 'updated_at', 'is_champion', 'is_blocked',
-                'is_favorite'
+                'id', 'fighter_red_id', 'fighter_blue_id', 'event_id',
+                'created_at', 'updated_at'
             ])
         );
         return {data: sanitizedFights};
@@ -49,7 +65,7 @@ export class ModelFight {
             [fighterBlueId]
         )
         if(existingEvents.rowCount === 0 || existingRedFighter.rowCount === 0 
-        || existingBlueFighter.rowCount === 0) return {error: 'El evento o los luchadores no existen'};
+        || existingBlueFighter.rowCount === 0) return {message: 'El evento o los luchadores no existen'};
         const sanitizedFighterRed = omit(existingRedFighter.rows[0], [
             'created_at', 'updated_at', 'is_champion', 'is_blocked', 'is_favorite'
         ]);
@@ -77,13 +93,30 @@ export class ModelFight {
         if(existingEvent.rowCount === 0) return {error: 'No existe un evento con ese ID'};
         // Si se existe, procedemos a hacer la consulta para obtener todas las peleas de dicho evento
         const fights = await db.query(
-            `SELECT fb.*, fr.*, r.* FROM fights r
-            JOIN fighters fr ON r.fighter_red_id = fr.id
-            JOIN fighters fb ON r.fighter_blue_id = fb.id
+            `SELECT e.*, r.* FROM fights r
             JOIN events e ON r.event_id = e.id
             WHERE e.id = $1`, [event_id]
         )
         if(fights.rowCount === 0) return {message: 'No hay peleas registradas para este evento'};
+        // recorremos la lista de peleas para obtener a los luchadores
+        for(const fight of fights.rows){
+            const fighterRed = await db.query(
+                `SELECT * FROM fighters WHERE id = $1`,
+                [fight.fighter_red_id]
+            );
+            const fighterBlue = await db.query(
+                `SELECT * FROM fighters WHERE id = $1`,
+                [fight.fighter_blue_id]
+            );
+            fight.fighter_red = omit(fighterRed.rows[0], [
+                'created_at', 'updated_at', 'is_champion', 'is_blocked', 'is_favorite',
+                'id'
+            ]);
+            fight.fighter_blue = omit(fighterBlue.rows[0], [
+                'created_at', 'updated_at', 'is_champion', 'is_blocked', 'is_favorite',
+                'id'
+            ]);
+        }
         const sanitizedfights = fights.rows.map(fight =>
             omit(fight, [
                 'id', 'created_at', 'updated_at', 'is_champion', 'is_blocked',
@@ -124,12 +157,12 @@ export class ModelFight {
         const newFight = await db.query(
             `INSERT INTO fights
             (event_id, fighter_red_id, fighter_blue_id, fight_order,
-            is_title_fight, is_main_event, is_co_main_event, weight_class,
+            is_title_fight, is_main_event, is_co_main_event, weight_fight,
             winner_fighter)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
             [event_id, fighter_red_id, fighter_blue_id, fight_order || null,
             is_title_fight || false, is_main_event || false, is_co_main_event || false,
-            weight_fight || null, winner_fighter || null]
+            weight_fight, winner_fighter || null]
         );
         if(newFight.rowCount === 0) return {error: 'No se pudo crear la pelea'};
         return {data: newFight.rows[0]};
@@ -138,14 +171,14 @@ export class ModelFight {
     // Método para actualizar una pelea por su ID
     static async updateFight({id, fight}){
         if(!id || !fight) return {error: 'ID de pelea y datos son requeridos'};
-        const allowedFilds = [
+        const allowedFields = [
             'event_id', 'fighter_red_id', 'fighter_blue_id', 'fight_order',
-            'is_title_fight', 'is_main_event', 'is_co_main_event', 'weight_class',
+            'is_title_fight', 'is_main_event', 'is_co_main_event', 'weight_fight',
             'winner_fighter'
         ];
-        // Colocamos los campos a actaulizar
+        // Colocamos los campos a actualizar
         const fieldsToUpdate = {};
-        for(const field of allowedFilds){
+        for(const field of allowedFields){
             if(fight[field] !== undefined){
                 fieldsToUpdate[field] = fight[field];
             }

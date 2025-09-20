@@ -33,15 +33,15 @@ Content-Type: multipart/form-data; boundary=CustomBoundary
 --CustomBoundary
 Content-Disposition: form-data; name="name_fighter"
 
-Jon Jones
+Michael Bisping
 --CustomBoundary
 Content-Disposition: form-data; name="nickname_fighter"
 
-Bones
+The Count
 --CustomBoundary
 Content-Disposition: form-data; name="age_fighter"
 
-34
+39
 --CustomBoundary
 Content-Disposition: form-data; name="height_fighter"
 
@@ -49,7 +49,7 @@ Content-Disposition: form-data; name="height_fighter"
 --CustomBoundary
 Content-Disposition: form-data; name="weight_fighter"
 
-106.0
+93.0
 --CustomBoundary
 Content-Disposition: form-data; name="stance_fighter"
 
@@ -57,20 +57,20 @@ orthodox
 --CustomBoundary
 Content-Disposition: form-data; name="country_fighter"
 
-USA
+England
 --CustomBoundary
 Content-Disposition: form-data; name="image_fighter"; filename="jon_jones.jpg"
 Content-Type: image/jpeg
 
-< ./uploads/jon_jones.jpg
+< ./uploads/michael_bisping.jpg
 --CustomBoundary
 Content-Disposition: form-data; name="team_id"
 
-3
+1
 --CustomBoundary
 Content-Disposition: form-data; name="category_id"
 
-6
+8
 --CustomBoundary--
 
 ### Obtener todos los luchadores
@@ -466,6 +466,49 @@ GET http://localhost:6300/api/notices/notice/1
 ### Eliminar una noticia
 DELETE http://localhost:6300/api/notices/delete/1
 
+### Crear una pelea
+POST http://localhost:6300/api/fights/create
+Content-Type: application/json
+
+{
+    "event_id": 1,
+    "fighter_red_id": 3,
+    "fighter_blue_id": 4,
+    "fight_order": 1,
+    "is_title_fight": false,
+    "is_main_event": false,
+    "is_co_main_event": false,
+    "weight_fight": "light heavyweight",
+    "winner_fighter": "no contest"
+}
+
+### Actualizar una pelea
+PATCH http://localhost:6300/api/fights/update/4
+Content-Type: application/json
+
+{
+    "event_id": 1,
+    "fighter_red_id": 3,
+    "fighter_blue_id": 4,
+    "fight_order": 1,
+    "is_title_fight": true,
+    "is_main_event": false,
+    "is_co_main_event": false,
+    "weight_fight": "light heavyweight",
+    "winner_fighter": "blue"
+}
+
+### Obtener todas las peleas de un evento
+GET http://localhost:6300/api/fights/event/1
+
+### Obtener todas las peleas
+GET http://localhost:6300/api/fights/all
+
+### Obtener una pelea por ID
+GET http://localhost:6300/api/fights/fight/4
+
+### Eliminar una pelea
+DELETE http://localhost:6300/api/fights/delete/4
 
 
 

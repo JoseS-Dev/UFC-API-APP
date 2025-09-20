@@ -8,6 +8,7 @@ import { RoutesStadistic } from './routes/RouteStadistic.mjs';
 import { RoutesEvent } from './routes/RouteEvent.mjs';
 import { RoutesLegend } from './routes/RouteLegend.mjs';
 import { RouteNotices } from './routes/RouteNotice.mjs';
+import { RoutesFight } from './routes/RouteFight.mjs';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use('/api/stadistics', RoutesStadistic);
 app.use('/api/events', RoutesEvent);
 app.use('/api/legends', RoutesLegend);
 app.use('/api/notices', RouteNotices);
+app.use('/api/fights', RoutesFight);
 
 // Montamos el servidor
 app.listen(process.env.PORT, () => {
