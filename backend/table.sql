@@ -91,6 +91,7 @@ CREATE TABLE fights (
     is_title_fight BOOLEAN DEFAULT FALSE,
     is_main_event BOOLEAN DEFAULT FALSE,
     is_co_main_event BOOLEAN DEFAULT FALSE,
+    weight_fight weight_class NOT NULL,
     winner_fighter VARCHAR(10) CHECK (winner IN ('red', 'blue', 'draw', 'no contest')),
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
     FOREIGN KEY (fighter_red_id) REFERENCES fighters(id) ON DELETE CASCADE,
@@ -117,7 +118,7 @@ CREATE TABLE stadistics_fighters (
 
 -- tabla de eventos
 CREATE TABLE events (
-    id SERAIL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name_event VARCHAR(175) NOT NULL,
     location_event VARCHAR(175) NOT NULL,
     venue_event VARCHAR(175) NOT NULL,
