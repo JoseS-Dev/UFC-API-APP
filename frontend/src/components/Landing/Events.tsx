@@ -4,8 +4,8 @@ import { Contact } from "./Contact"
 
 export function Events(){
     return (
-        <div className="w-full h-180 flex">
-            <section id="events" className="w-2/5 h-full">
+        <div className="w-full h-auto flex overflow-hidden">
+            <section id="events" className="w-2/5 h-180 flex flex-col">
                 <article className="relative w-full h-full bg-black flex 
                 flex-col items-center">
                     <img className="max-w-full min-h-full opacity-55 absolute z-0"

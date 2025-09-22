@@ -1,11 +1,60 @@
 import { Paragraphy } from "../../UI";
+import {useEffect, useRef, useState} from 'react';
 export function About(){
+    const[isVisible, setVisible] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
+    
+    // Handler para hover y scroll
+    const handleMouseEnter = () => {
+        setVisible(true);
+    }
+    const handleMouseLeave = () => {
+        setVisible(false);
+    }
+
+    // UseEffect para las animaciones
+    useEffect(() => {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    setVisible(true);
+                    observer.unobserve(entry.target);
+                }
+            })
+        }, observerOptions);
+        if(sectionRef.current){
+            observer.observe(sectionRef.current);
+        }
+        return () => observer.disconnect();
+    }, [])
+
+    // UseEffect para aplicar las clases dinámicamente
+    useEffect(() => {
+        const elements = sectionRef.current?.querySelectorAll('.scroll-element');
+        elements?.forEach(el => {
+            if (isVisible) {
+                el.classList.add('visible');
+            } else {
+                el.classList.remove('visible');
+            }
+        });
+    }, [isVisible]);
+    
     return (
-        <section id="about" className="w-full h-165 flex border-b-2 border-red-600">
-            <figure className="w-1/2 flex flex-col border-r-2 bg-black border-red-600">
+        <section
+            ref={sectionRef}
+            onScroll={handleMouseEnter}
+            onScrollEndCapture={handleMouseLeave}
+            id="about" 
+            className="w-full h-165 flex border-b-2 border-red-600">
+            <figure className="w-1/2 flex flex-col border-r-2 bg-black border-red-600 scroll-element">
                 <img className="border-none w-full h-full opacity-55" src="../../public/About.png"/>
             </figure>
-            <article className="w-1/2 flex flex-col p-7 gap-2">
+            <article className="w-1/2 flex flex-col p-7 gap-2 scroll-element">
                 <h3 className="text-3xl w-full border-b-2 border-red-500">
                     ¿What is About This Page?
                 </h3>

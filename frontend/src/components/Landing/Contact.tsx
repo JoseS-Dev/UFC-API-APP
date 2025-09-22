@@ -1,10 +1,58 @@
+import {useEffect, useRef, useState} from 'react';
+
 export function Contact(){
+    const[isVisible, setVisible] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
+    
+    // Handler para hover y scroll
+    const handleMouseEnter = () => {
+        setVisible(true);
+    }
+    const handleMouseLeave = () => {
+        setVisible(false);
+    }
+
+    // UseEffect para las animaciones
+    useEffect(() => {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    setVisible(true);
+                    observer.unobserve(entry.target);
+                }
+            })
+        }, observerOptions);
+        if(sectionRef.current){
+            observer.observe(sectionRef.current);
+        }
+        return () => observer.disconnect();
+    }, [])
+
+    // UseEffect para aplicar las clases dinámicamente
+    useEffect(() => {
+        const elements = sectionRef.current?.querySelectorAll('.scroll-element');
+        elements?.forEach(el => {
+            if (isVisible) {
+                el.classList.add('visible');
+            } else {
+                el.classList.remove('visible');
+            }
+        });
+    }, [isVisible]);
     return (
-        <section id="contact" className="w-10/12 h-full flex flex-col 
-        p-7 gap-2">
-            <h3 className="text-3xl w-full border-b-2 border-red-500">Contact Us</h3>
-            <form className="w-full h-full  flex">
-                <div className="w-2/5 h-full p-4  flex flex-col justify-around">
+        <section
+            ref={sectionRef}
+            onScroll={handleMouseEnter}
+            onScrollEndCapture={handleMouseLeave} 
+            id="contact" 
+            className="w-3/5 h-auto flex flex-col items-center p-7 gap-2">
+            <h3 className="text-3xl w-full border-b-2 border-red-500 scroll-element">Contact Us</h3>
+            <form className="w-full h-full flex scroll-element">
+                <div className="w-2/5 min-h-full p-4  flex flex-col justify-around">
                     <div className="w-full h-1/5 border-b-2 border-red-900 p-2 flex flex-col">
                         <label className="text-xl w-full border-b-2 border-gray-800" 
                         htmlFor="name_user">Name</label>
@@ -50,8 +98,8 @@ export function Contact(){
                         />
                     </div>
                 </div>
-                <div className="w-3/4 h- p-4 flex flex-col items-center">
-                    <div className="w-full h-11/12 border-b-2 p-4.5 border-gray-800 flex flex-col">
+                <div className="w-3/5 h-auto p-4 flex flex-col items-center">
+                    <div className="w-full h-10/12 border-b-2 p-4.5 border-gray-800 flex flex-col">
                         <label className="text-xl w-full border-b-2 border-gray-800" 
                         htmlFor="message_user">Message or Inquiry</label>
                         <textarea

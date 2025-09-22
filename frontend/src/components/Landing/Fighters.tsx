@@ -3,11 +3,60 @@ import { HistoryIcon } from "../../assets/Icon/HistoryIcon";
 import { FightIcon } from "../../assets/Icon/FightIcon";
 import { Link } from "react-router-dom";
 import { Paragraphy } from "../../UI";
+import {useEffect, useRef, useState} from 'react';
 
 export function Fighters(){
+    const[isVisible, setVisible] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
+    
+    // Handler para hover y scroll
+    const handleMouseEnter = () => {
+        setVisible(true);
+    }
+    const handleMouseLeave = () => {
+        setVisible(false);
+    }
+
+    // UseEffect para las animaciones
+    useEffect(() => {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    setVisible(true);
+                    observer.unobserve(entry.target);
+                }
+            })
+        }, observerOptions);
+        if(sectionRef.current){
+            observer.observe(sectionRef.current);
+        }
+        return () => observer.disconnect();
+    }, [])
+
+    // UseEffect para aplicar las clases dinámicamente
+    useEffect(() => {
+        const elements = sectionRef.current?.querySelectorAll('.scroll-element');
+        elements?.forEach(el => {
+            if (isVisible) {
+                el.classList.add('visible');
+            } else {
+                el.classList.remove('visible');
+            }
+        });
+    }, [isVisible]);
+    
     return (
-        <section id="fighters" className="w-full h-175 flex border-b-2 border-red-600">
-            <article className="border-r-2 border-red-600 w-1/2 p-7 flex flex-col gap-2 items-center">
+        <section
+            ref={sectionRef}
+            onScroll={handleMouseEnter}
+            onScrollEnd={handleMouseLeave}
+            id="fighters" 
+            className="w-full min-h-155 flex border-b-2 border-red-600">
+            <article className="border-r-2 border-red-600 w-1/2 p-7 flex flex-col gap-2 items-center scroll-element">
                 <h3 className="text-3xl w-full border-b-2 border-red-500">
                     Fighters of the <strong className="text-red-600">UFC</strong>
                 </h3>
@@ -54,7 +103,9 @@ export function Fighters(){
                 </Link>
             </article>
             <figure className="w-1/2 flex flex-col">
-                <img className="border-none w-full h-full opacity-55" src="../../public/Fighters.jpg"/>
+                <img className="border-none w-full h-full opacity-55 scroll-element"
+                loading="lazy" 
+                src="../../public/Fighters.jpg"/>
             </figure>
         </section>
     )

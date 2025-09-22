@@ -4,7 +4,7 @@ export function Banner(){
         <section className="relative w-full border-b-2 border-red-600 bg-black h-196 flex items-center justify-center">
             <img className="w-full h-full absolute z-0 opacity-45 bg-center" src="../../public/UFC-banner.jpg" 
             alt="UFC Banner" />
-            <article className="z-10 w-3/4 h-2/5 mb-24 ml-5 p-4 flex flex-col 
+            <article className="z-10 w-3/5 h-2/5 mb-24 ml-5 p-4 flex flex-col 
             items-center justify-center">
                 <div className="w-full h-1/2 flex flex-col items-center justify-center gap-1.5">
                 <h2 className="text-7xl">Welcome to the <strong className="text-red-600">UFC</strong> Fan Page</h2>

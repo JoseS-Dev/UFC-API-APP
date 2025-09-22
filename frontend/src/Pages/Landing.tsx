@@ -6,7 +6,7 @@ import { Events } from "../components/Landing/Events"
 
 export function Landing(){
     return (
-        <main className="w-full h-auto flex flex-col overflow-auto">
+        <main className="w-full h-auto flex flex-col relative overflow-y-auto">
             <Header/>
             <Banner/>
             <About/>

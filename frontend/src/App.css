@@ -4,4 +4,29 @@ body{
   background: linear-gradient(to right, #100, #111);
   color: #ddd;
   font-family: 'Roboto Crusaded', sans-serif;
+  scroll-behavior: smooth;
+}
+
+.scroll-element {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transición suave */
+}
+
+.scroll-element.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-opacity {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+  }
+  to { 
+    opacity: 1; 
+  }
 }
