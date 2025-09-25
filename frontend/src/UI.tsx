@@ -1,3 +1,11 @@
+const StrongUFC = () => <strong className="text-red-600">UFC</strong>;
+
+// Configuraciones para la animación de las secciones
+export const AnimationConfig = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+}
+
 export const Paragraphy = {
     'About': `
         This page is a fan-mode project created by JoseS-Dev as part of his
@@ -30,5 +38,45 @@ export const Paragraphy = {
         including the winners' names and methods of victory (KO, Submission, Decision). 
         Relive the key moments and stay informed about everything happening 
         inside the Octagon before the next big pay-per-view.
+    `,
+    'News': `
+        Stay updated with the latest news, announcements, and developments in the world of UFC. 
+        From fight announcements to behind-the-scenes stories, 
+        we've got you covered with all the information you need to stay in the loop.
     `
+}
+
+// Lista de parrafos para la lista de la sección de noticias
+export const NewsList = [
+    'New Fight Announcements',
+    'Fighter Signings and Departures',
+    'Event Results and Recaps',
+    'Event Updates and Changes',
+    'Injury Reports',
+    'Promotional Activities',
+    'Behind-the-Scenes Stories',
+    'Interviews and Press Conferences',
+    'Rule Changes and Updates',
+    'Community and Charity Initiatives',
+    'Fan Engagement Activities'
+];
+
+// Titulos de las secciones
+export const SectionTitles = {
+    'About': {
+        title: '¿What is About This Page?',
+        subtitule: () => <>¿What is the <StrongUFC/>?</>
+    },
+    'Fighters': {
+        title: () => <>Fighters of the <StrongUFC/></>
+    },
+    'Events': {
+        title: () => <>Latest Results & Past Events <StrongUFC/></>
+    },
+    'Contact': {
+        title: 'Contact US'
+    },
+    'News': {
+        title: () => <>Latest News of the <StrongUFC/></>
+    }
 }
