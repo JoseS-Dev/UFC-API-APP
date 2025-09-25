@@ -8,7 +8,7 @@ export function News(){
         <section
             ref={sectionRef}
             id='news'
-            className="w-full h-screen flex border-t-2 border-red-600"
+            className="w-full h-screen flex border-t-2 border-b-2 border-red-600"
         >
             <article className={`w-1/2 h-full border-r-2 border-red-600 scroll-element 
             ${isVisible ? 'visible' : ''}`}>

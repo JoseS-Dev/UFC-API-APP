@@ -10,23 +10,23 @@ export function Header(){
             <article className="h-full w-11/12 flex items-center">
                 <nav className="h-full w-4/5 flex items-center">
                     <ul className="flex items-center justify-around list-none w-full">
-                        <li className="hover:scale-95 text-2xl tracking-normal cursor-pointer 
+                        <li className="hover:scale-95 text-2xl tracking-normal cursor-pointer outline-none
                         transition-transform hover:text-red-400 hover:border-b-2 hover:border-gray-400">
                             <Link smooth to={"#about"}>About</Link>
                         </li>
-                        <li className="hover:scale-95 text-2xl tracking-normal cursor-pointer 
+                        <li className="hover:scale-95 text-2xl tracking-normal cursor-pointer outline-none
                         transition-transform hover:text-red-400 hover:border-b-2 hover:border-gray-400">
                             <Link smooth to="#fighters">Fighters</Link>
                         </li>
-                        <li className="hover:scale-95 text-2xl tracking-normal cursor-pointer 
+                        <li className="hover:scale-95 text-2xl tracking-normal cursor-pointer outline-none
                         transition-transform hover:text-red-400 hover:border-b-2 hover:border-gray-400">
                             <Link smooth to="#events">Events</Link>
                         </li>
-                        <li className="hover:scale-95 text-2xl tracking-normal cursor-pointer 
+                        <li className="hover:scale-95 text-2xl tracking-normal cursor-pointer outline-none
                         transition-transform hover:text-red-400 hover:border-b-2 hover:border-gray-400">
                             <Link smooth to="#news">News</Link>
                         </li>
-                        <li className="hover:scale-95 text-2xl tracking-normal cursor-pointer 
+                        <li className="hover:scale-95 text-2xl tracking-normal cursor-pointer outline-none
                         transition-transform hover:text-red-400 hover:border-b-2 hover:border-gray-400">
                             <Link smooth to="#contact">Contact</Link>
                         </li>

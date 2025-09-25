@@ -4,6 +4,7 @@ import { About } from "../components/Landing/About"
 import { Fighters } from "../components/Landing/Fighters"
 import { Events } from "../components/Landing/Events"
 import { News } from "../components/Landing/news"
+import { Footer } from "../components/Landing/Footer"
 
 export function Landing(){
     return (
@@ -14,6 +15,7 @@ export function Landing(){
             <Fighters/>
             <Events/>
             <News/>
+            <Footer/>
         </main>
     )
 }
