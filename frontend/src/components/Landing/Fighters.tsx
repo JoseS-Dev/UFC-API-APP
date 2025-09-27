@@ -2,7 +2,7 @@ import { GraphIcon } from "../../assets/Icon/GraphIcon";
 import { HistoryIcon } from "../../assets/Icon/HistoryIcon";
 import { FightIcon } from "../../assets/Icon/FightIcon";
 import { Link } from "react-router-dom";
-import { Paragraphy, SectionTitles } from "../../UI";
+import { Paragraphy, SectionTitles, ImagesSections } from "../../UI";
 import { HookAnimationScroll } from "../../hook/HookAnimationScroll";
 
 export function Fighters(){
@@ -63,7 +63,8 @@ export function Fighters(){
                 <img className={`border-none w-full h-full opacity-55 
                 scroll-element ${isVisible ? 'visible' : ''}`}
                 loading="lazy" 
-                src="../../public/images/Fighters.jpg"/>
+                alt="Fighters UFC"
+                src={ImagesSections.Fighters}/>
             </figure>
         </section>
     )

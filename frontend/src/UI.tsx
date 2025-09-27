@@ -1,3 +1,4 @@
+// Componente UI para la configuracion de textos, imagenes y animaciones
 const StrongUFC = () => <strong className="text-red-600">UFC</strong>;
 
 // Configuraciones para la animación de las secciones
@@ -78,5 +79,22 @@ export const SectionTitles = {
     },
     'News': {
         title: () => <>Latest News of the <StrongUFC/></>
+    },
+    'register': {
+        title: () => <>Register for the page of the <StrongUFC/></>
+    },
+    'login': {
+        title: () => <>Login for the page of the <StrongUFC/></>
     }
+}
+
+// Listas para las imagenes de las secciones
+export const ImagesSections = {
+    'About': '../public/images/About.png',
+    'Banner': '../public/Images/UFC-banner.jpg',
+    'Fighters': '../public/images/Fighters.jpg',
+    'Events': '../public/images/Events.jpg',
+    'News': '../public/images/News.jpg',
+    'Register': '../public/images/Register_UFC.webp',
+    'Login': '../public/images/Login-UFC.png'
 }

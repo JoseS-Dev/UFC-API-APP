@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert2";
 import { registerUser } from "../../services/ServicesUser";
+import { SectionTitles, ImagesSections } from "../../UI";
 
 export function Register(){
     const[nameUser, setNameUser] = useState('');
@@ -55,13 +56,13 @@ export function Register(){
         <main className="w-full h-screen flex">
             <article className="w-2/5 h-full border-2 border-red-600">
                 <figure className="w-full h-full bg-black">
-                    <img alt="Register Images" className="w-full h-full opacity-35"
-                    src="../../public/images/Register_UFC.webp"/>
+                    <img alt="Register Image UFC" className="w-full h-full opacity-35"
+                    src={ImagesSections.Register}/>
                 </figure>
             </article>
             <article className="w-3/5 h-full flex flex-col items-center p-6 gap-2">
                 <h2 className="w-full border-b-2 border-red-400 text-3xl p-2">
-                    Register for the page of the <strong className="text-red-600">UFC</strong>
+                    {SectionTitles.register.title()}
                 </h2>
                 <form onSubmit={handleSubmit} className="h-full w-11/12 flex flex-col items-center
                 p-4 gap-1.5">

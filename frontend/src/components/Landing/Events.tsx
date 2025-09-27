@@ -1,4 +1,4 @@
-import { Paragraphy, SectionTitles } from "../../UI"
+import { Paragraphy, SectionTitles, ImagesSections } from "../../UI"
 import { Link } from "react-router-dom"
 import { Contact } from "./Contact"
 import { HookAnimationScroll } from "../../hook/HookAnimationScroll"
@@ -11,7 +11,7 @@ export function Events(){
                 <article className={`relative w-full h-full bg-black flex 
                 flex-col items-center scroll-element ${isVisible ? 'visible' : ''}`}>
                     <img className="max-w-full min-h-full opacity-55 absolute z-0"
-                    src="../../public/images/Events.jpg" loading="lazy"/>
+                    src={ImagesSections.Events} loading="lazy" alt="Events UFC"/>
                     <div className="absolute z-10 p-7 w-full h-full flex flex-col
                     gap-2 items-center">
                         <h3 className="text-3xl w-full border-b-2 border-red-500">

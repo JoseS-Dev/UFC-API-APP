@@ -3,6 +3,7 @@ import { useState, useId } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginUser } from "../../services/ServicesUser";
 import swal from "sweetalert2";
+import { SectionTitles, ImagesSections } from "../../UI";
 
 export function Login(){
     const[emailUser, setEmailUser] = useState('');
@@ -53,7 +54,7 @@ export function Login(){
             <article className="border-r-2 border-red-600 w-3/5 h-full flex flex-col 
             p-6 gap-2 items-center">
                 <h2 className="text-3xl p-2 w-full border-b-2 border-red-400">
-                    Login for the page of the <strong className="text-red-600">UFC</strong>
+                    {SectionTitles.login.title()}
                 </h2>
                 <form onSubmit={handleSubmit} className="w-11/12 h-full flex flex-col items-center justify-evenly p-4 gap-1.5">
                     <div className="w-full h-1/5 border-b-2 border-gray-700 rounded-2xl p-5 flex 
@@ -123,8 +124,8 @@ export function Login(){
             </article>
             <article className="w-2/5 h-full flex flex-col">
                 <figure className="w-full h-full bg-black">
-                    <img alt="Login Image" className="w-full h-full opacity-35"
-                    src="../../public/images/Login-UFC.png"/>
+                    <img alt="Login Image UFC" className="w-full h-full opacity-35"
+                    src={ImagesSections.Login}/>
                 </figure>
             </article>
         </main>

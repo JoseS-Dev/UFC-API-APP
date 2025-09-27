@@ -60,7 +60,6 @@ export class ControllerUsers{
 
     // Controlador para verificar si el usuario esta autenticado
     verifyAuth = async (req, res) => {
-        console.log(req.user);
         if(!req.user) return res.status(401).json({
             message: "Usuario no autenticado",
             isauthenticated: false,

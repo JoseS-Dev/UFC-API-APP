@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import { Paragraphy, NewsList, SectionTitles } from "../../UI";
+import { Paragraphy, NewsList, SectionTitles, ImagesSections } from "../../UI";
 import { HookAnimationScroll } from "../../hook/HookAnimationScroll";
 
 export function News(){
@@ -13,8 +13,8 @@ export function News(){
             <article className={`w-1/2 h-full border-r-2 border-red-600 scroll-element 
             ${isVisible ? 'visible' : ''}`}>
                 <figure className="w-full h-full bg-black ">
-                    <img className="w-full h-full opacity-40" src="../../public/images/News.jpg" 
-                    alt="News" loading='lazy'/>
+                    <img className="w-full h-full opacity-40" src={ImagesSections.News} 
+                    alt="News UFC" loading='lazy'/>
                 </figure>
             </article>
             <article className={`w-1/2 h-full flex flex-col items-center p-7 gap-2 scroll-element

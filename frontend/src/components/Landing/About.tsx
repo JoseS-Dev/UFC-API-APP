@@ -1,5 +1,6 @@
 import { Paragraphy, SectionTitles } from "../../UI";
 import { HookAnimationScroll } from "../../hook/HookAnimationScroll";
+import { ImagesSections } from "../../UI";
 
 export function About(){
     const {sectionRef, isVisible} = HookAnimationScroll();
@@ -11,8 +12,8 @@ export function About(){
             className="w-full h-165 flex border-b-2 border-red-600">
             <figure className={`w-1/2 flex flex-col border-r-2 bg-black border-red-600 scroll-element 
             ${isVisible ? 'visible' : ''}`}>
-                <img className="border-none w-full h-full opacity-55" src="../../public/images/About.png"
-                loading="lazy"/>
+                <img className="border-none w-full h-full opacity-55" src={ImagesSections.About}
+                loading="lazy" alt="About UFC"/>
             </figure>
             <article className={`w-1/2 flex flex-col p-7 gap-2 scroll-element 
             ${isVisible ? 'visible' : ''}`}>
