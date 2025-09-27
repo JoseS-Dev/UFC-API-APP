@@ -50,7 +50,7 @@ export class ControllerUsers{
             const loggedOutUser = await this.ModelUser.logoutUser({email_user});
             if(loggedOutUser.error) return res.status(500).json({error: loggedOutUser.error});
             if(loggedOutUser.message) return res.status(400).json({message: loggedOutUser.message});
-            return res.status(200).json({message: loggedOutUser.out});
+            return res.status(200).json({outLogout: loggedOutUser.out});
         }
         catch(error){
             console.log(error);
@@ -60,10 +60,14 @@ export class ControllerUsers{
 
     // Controlador para verificar si el usuario esta autenticado
     verifyAuth = async (req, res) => {
+        console.log(req.user);
         if(!req.user) return res.status(401).json({
             message: "Usuario no autenticado",
-            isauthenticated: false
+            isauthenticated: false,
         })
-        return res.status(200).json({message: "Usuario autenticado", isauthenticated: true })
+        return res.status(200).json({
+            message: "Usuario autenticado", 
+            isauthenticated: true,
+        })
     }
 }

@@ -1,5 +1,8 @@
 import {db} from '../DB.mjs';
 import bcrypt from 'bcryptjs';
+import pkg from 'lodash';
+
+const {omit} = pkg;
 
 export class ModelUser{
     // Método para el registro de un usuario
@@ -21,8 +24,8 @@ export class ModelUser{
         );
         if(newUser.rowCount === 0) return {error: 'No se ha podido registrar el usuario'};
         console.log('Usuario registrado con éxito');
-        const {password_user: _,rol_user: __,created_at: ___, ...existingUserWithoutPassword} = newUser.rows[0];
-        return existingUserWithoutPassword;
+        const existingUserWithoutPassword = omit(newUser.rows[0], ['password_user', 'rol_user', 'created_at']);
+        return {data: existingUserWithoutPassword};
     }
 
     // Metodo para el login del usuario
@@ -59,8 +62,8 @@ export class ModelUser{
                 )
             }
             console.log("Usuario logueado con éxito");
-            const {password_user: _,rol_user: __,created_at: ___, ...existingUserWithoutPassword} = existingUser.rows[0];
-            return existingUserWithoutPassword;
+            const existingUserWithoutPassword = omit(existingUser.rows[0], ['password_user', 'created_at']);
+            return {data: existingUserWithoutPassword};
         }
     }
 

@@ -16,4 +16,4 @@ RouteUser.post('/login', controllerUsers.loginUser);
 // Ruta para el cierre de sesión del usuario
 RouteUser.post('/logout', controllerUsers.logoutUser);
 // Ruta para verificar si el usuario está autenticado
-RouteUser.get('/verify', verifyToken, controllerUsers.verifyAuth);
+RouteUser.post('/verify', verifyToken, controllerUsers.verifyAuth);

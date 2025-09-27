@@ -1,5 +1,8 @@
-import { useState, useId } from "react"
+import { useState, useId } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert2";
+import { registerUser } from "../../services/ServicesUser";
 
 export function Register(){
     const[nameUser, setNameUser] = useState('');
@@ -10,6 +13,43 @@ export function Register(){
     const username_user = useId();
     const email_user = useId();
     const password_user = useId();
+    const navigate = useNavigate();
+
+    // Handle Submit del formulario de registro
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if(nameUser === '' || username === '' || emailUser === '' || passwordUser === ''){
+            swal.fire({
+                icon: 'error',
+                title: 'All fields are required',
+                text: 'Please fill in all the fields to register.'
+            })
+        }
+        try{
+            const UserData = {
+                name_user: nameUser,
+                username_user: username,
+                email_user: emailUser,
+                password_user: passwordUser
+            };
+            const response = await registerUser(UserData);
+            if(response.error) await swal.fire({
+                icon: 'error',
+                title: 'Registration Error',
+                text: `${response.error}`
+            });
+            else if(response.message || response.data) await swal.fire({
+                icon: 'success',
+                title: 'Registration Successful',
+                text: `${response.message}`
+            })
+            navigate('/Login');
+        }
+        catch(error){
+            console.error('Error registering user:', error);
+        }
+    }
+
     
     return (
         <main className="w-full h-screen flex">
@@ -23,7 +63,7 @@ export function Register(){
                 <h2 className="w-full border-b-2 border-red-400 text-3xl p-2">
                     Register for the page of the <strong className="text-red-600">UFC</strong>
                 </h2>
-                <form className="h-full w-11/12 flex flex-col items-center
+                <form onSubmit={handleSubmit} className="h-full w-11/12 flex flex-col items-center
                 p-4 gap-1.5">
                     <div className="w-full h-1/5 border-b-2 rounded-xl border-gray-700 flex flex-col p-5 gap-3">
                         <label htmlFor={name_user} className="text-xl tracking-normal w-full border-b-2 border-red-800">
@@ -91,12 +131,19 @@ export function Register(){
                     </div>
                     <div className="w-full h-1/5 flex items-center flex-col p-3 gap-3">
                         <Link to={'/Login'} className="text-lg flex gap-2.5">¿Are you have Account? 
-                        <span className="text-red-600 hover:text-underline">Login</span></Link>
-                        <button className="w-2/6 h-14 rounded-2xl text-xl
-                        bg-red-600 font-bold text-white tracking-normal hover:bg-red-800 hover:scale-95
-                        transition-transform cursor-pointer duration-300">
+                        <span className="text-red-600 hover:underline transition-discrete duration-150">Login</span></Link>
+                        <div className="w-11/12 h-full flex justify-evenly">
+                            <button type="submit" className="w-2/6 h-14 rounded-2xl text-xl
+                          bg-red-600 font-bold text-white tracking-normal hover:bg-red-800 hover:scale-95
+                            transition-transform cursor-pointer duration-300">
                             Registration
-                        </button>
+                            </button>
+                            <Link to='/' className="w-2/6 h-14 rounded-2xl text-xl
+                          bg-gray-900 font-bold text-red-400 tracking-normal hover:bg-gray-800 hover:scale-95
+                            transition-transform cursor-pointer duration-300 flex items-center justify-center">
+                                Go to Landing
+                            </Link>
+                        </div>
                     </div>
                 </form>
             </article>
