@@ -13,7 +13,7 @@ export function News(){
             <article className={`w-1/2 h-full border-r-2 border-red-600 scroll-element 
             ${isVisible ? 'visible' : ''}`}>
                 <figure className="w-full h-full bg-black ">
-                    <img className="w-full h-full opacity-40" src="../../public/News.jpg" 
+                    <img className="w-full h-full opacity-40" src="../../public/images/News.jpg" 
                     alt="News" loading='lazy'/>
                 </figure>
             </article>

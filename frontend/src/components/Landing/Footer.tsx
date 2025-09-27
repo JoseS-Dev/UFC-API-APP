@@ -27,7 +27,7 @@ export function Footer(){
                     Contact Us
                 </Link>
             </article>
-            <article className={`w-full h-1/4 flex justify-between border-b-2 border-red-600 
+            <article className={`w-full h-1/4 flex justify-between  
             px-3 items-center gap-2 mt-2 scroll-element ${isVisible ? 'visible' : ''}`}>
                 <span className="text-xl tracking-wide">Follow us on:</span>
                 <div className="w-1/4 h-full flex justify-evenly items-center">

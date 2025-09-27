@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 export function Banner(){
     return (
         <section className="relative w-full border-b-2 border-red-600 bg-black h-196 flex items-center justify-center">
-            <img className="w-full h-full absolute z-0 opacity-45 bg-center" src="../../public/UFC-banner.jpg" 
+            <img className="w-full h-full absolute z-0 opacity-45 bg-center" src="../../public/images/UFC-banner.jpg" 
             alt="UFC Banner" />
             <article className="z-10 w-3/5 h-2/5 mb-24 ml-5 p-4 flex flex-col 
             items-center justify-center">

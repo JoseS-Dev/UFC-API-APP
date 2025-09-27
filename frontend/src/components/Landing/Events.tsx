@@ -11,7 +11,7 @@ export function Events(){
                 <article className={`relative w-full h-full bg-black flex 
                 flex-col items-center scroll-element ${isVisible ? 'visible' : ''}`}>
                     <img className="max-w-full min-h-full opacity-55 absolute z-0"
-                    src="../../public/Events.jpg" loading="lazy"/>
+                    src="../../public/images/Events.jpg" loading="lazy"/>
                     <div className="absolute z-10 p-7 w-full h-full flex flex-col
                     gap-2 items-center">
                         <h3 className="text-3xl w-full border-b-2 border-red-500">

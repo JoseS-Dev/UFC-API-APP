@@ -63,7 +63,7 @@ export function Fighters(){
                 <img className={`border-none w-full h-full opacity-55 
                 scroll-element ${isVisible ? 'visible' : ''}`}
                 loading="lazy" 
-                src="../../public/Fighters.jpg"/>
+                src="../../public/images/Fighters.jpg"/>
             </figure>
         </section>
     )
