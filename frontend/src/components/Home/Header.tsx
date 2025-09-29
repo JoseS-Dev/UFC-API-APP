@@ -1,55 +1,24 @@
-import { LogoutUser } from "../../services/ServicesUser"
-import swal from "sweetalert2";
-import { useNavigate } from "react-router";
+import { SearchIcon } from "../../assets/Icon/SearchIcon";
+
 
 export function Header(){
-    const navigate = useNavigate();
-    const handleLogout = async () => {
-        const email_user = JSON.parse(localStorage.getItem('user') || '{}').data.email_user;
-        try{
-            const response = await LogoutUser(email_user);
-            if(response.error) swal.fire({
-                icon: 'error',
-                title: 'Logout Error',
-                text: `${response.error}`
-            })
-            else if(response.message) swal.fire({
-                icon: 'warning',
-                title: 'Internal Error',
-                text: `${response.message}`
-            })
-            else{
-                await swal.fire({
-                    icon: 'success',
-                    title: 'Logout Successful',
-                    text: `${response.outLogout}`
-                });
-                localStorage.clear();
-                navigate('/Login');
-            }
-        }
-        catch(error){
-            console.error('Error logging out user:', error);
-            swal.fire({
-                icon: 'error',
-                title: 'Logout Error',
-                text: 'Error logging out user'
-            });
-        }
-    }
+    const name_user = JSON.parse(localStorage.getItem("user") || "{}").data.name_user;
     return (
-        <header className="w-full h-1/10 border-b-2 border-red-700 flex 
+        <header className="w-full h-1/10 border-b-2 border-red-900 flex 
         items-center justify-between px-7">
             <h1 className="text-3xl tracking-normal">
-                UFC-<strong className="text-red-600">API</strong>
+                Bienvenido de vuelta, {name_user}
             </h1>
-            <button className="w-45 h-14 rounded-xl
-            bg-red-700 font-bold text-lg hover:bg-red-900
-            hover:scale-105 cursor-pointer transition-transform"
-            onClick={handleLogout}
-            >
-                Logout
-            </button>
+            <article className="h-3/4 w-2/4 flex items-center justify-between">
+                <input
+                    type="search"
+                    className="border-b-2 border-r-2 border-gray-600 w-full h-12
+                    px-3 outline-none text-gray-500 text-lg focus:border-red-500
+                    placeholder:placeholder-gray-500 transition-colors duration-300"
+                    placeholder="Search fighters, events, fights..."
+                />
+                <SearchIcon/>
+            </article>
         </header>
     )
 }
