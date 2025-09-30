@@ -416,16 +416,16 @@ Content-Type: multipart/form-data; boundary=CustomBoundary
 --CustomBoundary
 Content-Disposition: form-data; name="title_notice"
 
-UFC 300 Set to Feature Historic Matchup
+UFC 301 Set to Feature Historic Matchup
 --CustomBoundary
 Content-Disposition: form-data; name="content_notice"
 
-The UFC is gearing up for a monumental event with UFC 300, scheduled to take place on November 2, 2024, at the T-Mobile Arena in Las Vegas, NV. This event promises to deliver an unforgettable night of fights, including a historic matchup that has fans buzzing with excitement.
+The UFC is gearing up for a monumental event with UFC 301, scheduled to take place on November 2, 2024, at the T-Mobile Arena in Las Vegas, NV. This event promises to deliver an unforgettable night of fights, including a historic matchup that has fans buzzing with excitement.
 --CustomBoundary
 Content-Disposition: form-data; name="image_notice"; filename="UFC300.jpg"
 Content-Type: image/jpeg
 
-< ./uploads/UFC300.jpg
+< ./https://th.bing.com/th/id/R.78129609b4b9e898298b9167347784e8?rik=GHHr64B4OkQ5ng&pid=ImgRaw&r=0
 --CustomBoundary
 Content-Disposition: form-data; name="video_notice"; filename="UFC300.mp4"
 Content-Type: video/mp4

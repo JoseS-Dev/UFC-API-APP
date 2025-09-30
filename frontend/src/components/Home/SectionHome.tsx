@@ -1,9 +1,16 @@
 import { ArrowLeft, ArrowRight } from "../../assets/Icon/Arrow"
 import { Link } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useEffect } from "react";
+import { useNewsStore } from "../../context/NewsContext";
 import type { UserData } from "../../Interfaces/Users"
+import { ImagesForservices } from "../../UI";
 
 export function SectionHome({user}: {user: UserData | null}){
+    const { fetchAllNews, news} = useNewsStore();
+    
+    useEffect(() => {
+        fetchAllNews();
+    }, []);
     
     return (
         <section className="h-full w-4/5 p-3 flex flex-col gap-1.5">
@@ -20,16 +27,22 @@ export function SectionHome({user}: {user: UserData | null}){
                 </div>
                 <div className="w-full flex justify-around 
                 h-11/12 overflow-hidden gap-4 items-center p-1">
-                    <div className="relative min-w-3/10 h-full
-                    rounded-2xl flex flex-col items-center hover:scale-95
-                    transition-transform duration-300 cursor-pointer">
-                        <img
-                            src="../../public/images/image.png"
-                            alt="news image"
-                            className="w-full h-full"
-                        />
-                        <span className="z-10 text-2xl absolute p-1">KO de Oliverias</span>
-                    </div>
+                    {news?.length === 0 ? (
+                        <p className="text-lg italic">No news available</p>
+                    ): (
+                        news?.map((item,index) => (
+                            <Link to={`/news/${item.id}`} key={index} className="relative min-w-3/10 
+                            h-full rounded-2xl flex flex-col items-center hover:scale-95
+                            transition-transform duration-300 cursor-pointer">
+                                <img
+                                    src={`${ImagesForservices}/${item.image_notice.split('\\').pop()}`}
+                                    alt="news image"
+                                    className="w-full h-full"
+                                />
+                                <span className="z-10 text-2xl absolute p-1">{item.title_notice}</span>
+                            </Link>
+                        ))
+                    )}
                 </div>
             </article>
             <article className="w-full h-4/5 flex p-2">
@@ -80,7 +93,7 @@ export function SectionHome({user}: {user: UserData | null}){
                     </div>
                     <div className="w-full h-10/12 flex flex-col p-1.5 gap-1">
                         <h4 className="text-xl tracking-normal border-b-2 border-red-600 px-2">
-                            Your Favorites Fighters and Legend
+                            Your Favorites Fighters
                         </h4>
                         <div className="w-full h-11/12 flex gap-9 overflow-hidden 
                         justify-evenly items-center px-5">

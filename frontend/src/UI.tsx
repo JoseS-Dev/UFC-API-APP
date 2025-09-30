@@ -98,3 +98,5 @@ export const ImagesSections = {
     'Register': '../public/images/Register_UFC.webp',
     'Login': '../public/images/Login-UFC.png'
 }
+
+export const ImagesForservices = `${import.meta.env.VITE_APP_URL}/uploads/notices`;
