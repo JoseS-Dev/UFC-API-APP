@@ -5,51 +5,33 @@ import { NewsIcon } from "../assets/Icon/NewsIcon";
 import { FightIconHome } from "../assets/Icon/FightIcon";
 import { SettingsIcon } from "../assets/Icon/SettingsIcon";
 import { StarIcon } from "../assets/Icon/FavoritesIcon";
-import { LogoutUser } from "../services/ServicesUser";
 import swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-export function SideBar(){
-    const email_user = JSON.parse(localStorage.getItem("user") || "{}").data.email_user;
+export function SideBar({ handleLogout }: {handleLogout: () => Promise<any>}){
     const navigate = useNavigate();
-    
-    // Handle Logout del usuario
-    const handleLogout = async () => {
+    const handleLogoutClick = async () => {
         try{
-            const windowAlert = await swal.fire({
-                title: 'Are you sure you want to logout?',
-                text: "You will need to login again to access your account.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#660000',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, logout!'
-            });
-            if(windowAlert.isConfirmed){
-                const response = await LogoutUser(email_user);
-                if(response.error) swal.fire({
+            const response = await handleLogout();
+            if(response.outLogout) {
+                await swal.fire({
+                    icon: 'success',
+                    title: 'Logout successful',
+                    text: response.outLogout
+                })
+                localStorage.clear();
+                navigate('/');
+            }
+            else{
+                swal.fire({
                     icon: 'error',
-                    title: 'Logout Error',
-                    text: `${response.error}`
+                    title: 'Logout failed',
+                    text: response.error || response.message
                 })
-                else if(response.message) swal.fire({
-                    icon: 'info',
-                    title: 'Internal Error',
-                    text: `${response.message}`
-                })
-                else{
-                    await swal.fire({
-                        icon: 'success',
-                        title: 'Logout Successful',
-                        text: `${response.outLogout}`
-                    });
-                    localStorage.clear();
-                    navigate('/'); // Redirijo al usuario a la página de la landing
-                }
             }
         }
         catch(error){
-            console.error('Error logging out user:', error);
+            console.error("Error during logout:", error);
         }
     }
     
@@ -103,7 +85,7 @@ export function SideBar(){
                     <span className="text-xl tracking-normal font-semibold">Favorites</span>
                 </Link>
             </ul>
-            <button onClick={handleLogout}
+            <button onClick={handleLogoutClick}
             className="w-3/5 h-12 rounded-2xl text-lg bg-red-800 font-bold 
             text-gray-300 hover:bg-red-900 hover:scale-95 transition-transform 
             cursor-pointer duration-300">

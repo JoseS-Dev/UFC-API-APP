@@ -1,7 +1,10 @@
 import { ArrowLeft, ArrowRight } from "../../assets/Icon/Arrow"
 import { Link } from "react-router-dom"
+import { useState, useEffect } from "react"
+import type { UserData } from "../../Interfaces/Users"
 
-export function SectionHome(){
+export function SectionHome({user}: {user: UserData | null}){
+    
     return (
         <section className="h-full w-4/5 p-3 flex flex-col gap-1.5">
             <article className="h-2/5 w-full border-b-2 border-red-800  p-4 flex flex-col 
@@ -59,11 +62,11 @@ export function SectionHome(){
                         <div className="w-full h-4/5 flex">
                             <div className="w-2/5 h-full flex flex-col p-2 items-center">
                                 <div className="h-auto flex gap-2">
-                                    <span>Name: Jose Angel</span>
-                                    <span>Username: SenkuJS</span>
+                                    <span>Name: {user?.name_user}</span>
+                                    <span>Username: {user?.username_user}</span>
                                 </div>
-                                <span>Email: joseasantana05@gmail.com</span>
-                                <span>Member since: 2023</span>
+                                <span>Email: {user?.email_user}</span>
+                                <span>Member since: {user?.createdAt}</span>
                             </div>
                             <div className="w-3/5 h-full flex justify-evenly items-center">
                                 <Link to="/edit-profile" className="text-lg text-white w-2/5

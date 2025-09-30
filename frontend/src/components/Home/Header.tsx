@@ -1,13 +1,14 @@
 import { SearchIcon } from "../../assets/Icon/SearchIcon";
+import type { UserData } from "../../Interfaces/Users";
 
 
-export function Header(){
-    const name_user = JSON.parse(localStorage.getItem("user") || "{}").data.name_user;
+export function Header({user}: {user: UserData | null}){
+
     return (
         <header className="w-full h-1/10 border-b-2 border-red-900 flex 
         items-center justify-between px-7">
             <h1 className="text-3xl tracking-normal">
-                Bienvenido de vuelta, {name_user}
+                Bienvenido de vuelta, {user?.name_user}
             </h1>
             <article className="h-3/4 w-2/4 flex items-center justify-between">
                 <input

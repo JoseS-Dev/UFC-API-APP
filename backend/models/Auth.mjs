@@ -24,7 +24,7 @@ export class ModelUser{
         );
         if(newUser.rowCount === 0) return {error: 'No se ha podido registrar el usuario'};
         console.log('Usuario registrado con éxito');
-        const existingUserWithoutPassword = omit(newUser.rows[0], ['password_user', 'rol_user', 'created_at']);
+        const existingUserWithoutPassword = omit(newUser.rows[0], ['password_user', 'rol_user']);
         return {data: existingUserWithoutPassword};
     }
 
