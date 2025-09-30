@@ -99,4 +99,9 @@ export const ImagesSections = {
     'Login': '../public/images/Login-UFC.png'
 }
 
-export const ImagesForservices = `${import.meta.env.VITE_APP_URL}/uploads/notices`;
+export const ImagesForservices = {
+    'notices': `${import.meta.env.VITE_APP_URL}/uploads/notices`,
+    'fighters': `${import.meta.env.VITE_APP_URL}/uploads/fighters`,
+    'events': `${import.meta.env.VITE_APP_URL}/uploads/events`,
+    'legends': `${import.meta.env.VITE_APP_URL}/uploads/legends`
+}

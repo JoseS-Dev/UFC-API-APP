@@ -62,7 +62,7 @@ export class ModelUser{
                 )
             }
             console.log("Usuario logueado con éxito");
-            const existingUserWithoutPassword = omit(existingUser.rows[0], ['password_user', 'created_at']);
+            const existingUserWithoutPassword = omit(existingUser.rows[0], ['password_user']);
             return {data: existingUserWithoutPassword};
         }
     }
