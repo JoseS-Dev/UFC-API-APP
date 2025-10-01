@@ -24,7 +24,7 @@ export function SectionFighters(){
             <article className="w-full h-14 border-b-2 border-red-800 flex justify-between
             items-center px-3">
                 <h2 className="text-2xl tracking-normal flex gap-2.5">
-                    All Fighters <strong className="text-red-600">{filteredFighters.length}</strong>
+                    All Fighters <strong className="text-red-900">{filteredFighters.length}</strong>
                 </h2>
                 <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} 
                 className="border-2 border-gray-600 outline-none rounded-2xl w-1/6 h-3/4 px-2 italic">
