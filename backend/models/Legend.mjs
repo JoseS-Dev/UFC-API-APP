@@ -96,7 +96,7 @@ export class ModelLegend {
             name_legend, nickname_legend, image_legend, weight_legend,
             height_legend, stance_legend, country_legend, streak_legend,
             title_win_legend, trophys_legend, description_legend, date_debut_legend,
-            date_retirement_legend, period_active_legend
+            date_retirement_legend, period_active_legend, category_id
         } = legend;
         // Se verifica si ya existe la leyenda
         const existingLegend = await db.query(
@@ -117,8 +117,15 @@ export class ModelLegend {
                 title_win_legend, trophys_legend, description_legend, date_debut_legend,
                 date_retirement_legend, period_active_legend
             ]
-        )
+        );
         if(newLegend.rowCount === 0) return {message: 'Error al crear la leyenda'};
+        // Si se proporciona una categoría de peso, se inserta en la tabla intermedia
+        if(category_id){
+            await db.query(
+                `INSERT INTO legends_weight_categories (legend_id, category_id) VALUES ($1, $2)`,
+                [newLegend.rows[0].id, category_id]
+            )
+        }
         return {data: newLegend.rows[0]};
     }
 

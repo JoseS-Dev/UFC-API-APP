@@ -20,7 +20,7 @@ export function SectionFighters(){
     }, [fighters, selectedCategory]);
 
     return (
-        <section className="w-4/5 h-full border-2 border-white flex flex-col p-4 items-center gap-2.5">
+        <section className="w-4/5 h-full flex flex-col p-4 items-center gap-2.5">
             <article className="w-full h-14 border-b-2 border-red-800 flex justify-between
             items-center px-3">
                 <h2 className="text-2xl tracking-normal flex gap-2.5">
@@ -46,7 +46,7 @@ export function SectionFighters(){
                 ) : (
                     filteredFighters.map((fighter, index) => (
                         <Link to={`/fighter/${fighter.id}`} key={index} 
-                        className="w-1/6 rounded-2xl h-75 
+                        className="w-1/6 rounded-2xl h-70 
                         border-2 border-amber-100 relative flex flex-col 
                         items-center justify-end bg-black hover:scale-95 
                         transition-transform duration-300 cursor-pointer">

@@ -4,7 +4,7 @@ export interface UserData {
     username_user: string;
     email_user: string;
     password_user: string;
-    createdAt: string;
+    created_at: string;
 }
 
 export interface LoginData {

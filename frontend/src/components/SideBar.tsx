@@ -43,43 +43,43 @@ export function SideBar({ handleLogout }: {handleLogout: () => Promise<any>}){
             </h2>
             <ul className="list-none w-full h-10/12 flex flex-col items-center 
             justify-evenly p-1">
-                <Link to="/fighters" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
+                <Link to="/Fighters" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
                 flex items-center gap-5 px-4 hover:scale-95 transition-transform duration-300">
                     <FightersIcon />
                     <span className="text-xl tracking-normal font-semibold">Fighters</span>
                 </Link>
-                <Link to="/legends" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
+                <Link to="/Legends" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
                 flex items-center gap-5 px-4 hover:scale-95
                 transition-transform duration-300">
                     <FightersIcon />
                     <span className="text-xl tracking-normal font-semibold">Legends</span>
                 </Link>
-                <Link to="/events" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
+                <Link to="/Events" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
                 flex items-center gap-5 px-4 hover:scale-95 transition-transform duration-300">
                     <EventsIcon />
                     <span className="text-xl tracking-normal font-semibold">Events</span>
                 </Link>
-                <Link to="/news" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
+                <Link to="/News" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
                 flex items-center gap-5 px-4 hover:scale-95 transition-transform duration-300">
                     <NewsIcon />
                     <span className="text-xl tracking-normal font-semibold">News</span>
                 </Link>
-                <Link to="/fights" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
+                <Link to="/Fights" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
                 flex items-center gap-5 px-4 hover:scale-95 transition-transform duration-300">
                     <FightIconHome />
                     <span className="text-xl tracking-normal font-semibold">Fights</span>
                 </Link>
-                <Link to="/profile" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
+                <Link to="/Profile" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
                 flex items-center gap-5 px-4 hover:scale-95 transition-transform duration-300">
                     <UserIcon />
                     <span className="text-xl tracking-normal font-semibold">Profile</span>
                 </Link>
-                <Link to="/settings" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
+                <Link to="/Settings" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
                 flex items-center gap-5 px-4 hover:scale-95 transition-transform duration-300">
                     <SettingsIcon />
                     <span className="text-xl tracking-normal font-semibold">Settings</span>
                 </Link>
-                <Link to="/favorites" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
+                <Link to="/Favorites" className="border-b-2 rounded-xl border-red-900 w-full h-1/5 
                 flex items-center gap-5 px-4 hover:scale-95 transition-transform duration-300">
                     <StarIcon />
                     <span className="text-xl tracking-normal font-semibold">Favorites</span>

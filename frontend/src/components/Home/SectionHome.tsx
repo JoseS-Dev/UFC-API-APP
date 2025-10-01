@@ -102,7 +102,7 @@ export function SectionHome({user}: {user: UserData | null}){
                                     <span>Username: {user?.username_user}</span>
                                 </div>
                                 <span>Email: {user?.email_user}</span>
-                                <span>Member since: {user?.createdAt}</span>
+                                <span>Member since: {user?.created_at.split('T')[0]}</span>
                             </div>
                             <div className="w-3/5 h-full flex justify-evenly items-center">
                                 <Link to="/edit-profile" className="text-lg text-white w-2/5

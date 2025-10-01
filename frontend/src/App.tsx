@@ -4,6 +4,7 @@ import { Login } from './Pages/Login-Register/Login';
 import { Register } from './Pages/Login-Register/Register';
 import { Home } from './Pages/Users/Home';
 import { Fighters } from './Pages/Users/Fighters';
+import { Legends } from './Pages/Users/Legends';
 import { ProtectedUser } from './components/ProtectedUser';
 import { ProtectedAdmin } from './components/ProtectedAdmin';
 import { UserProvider } from './context/UserContext';
@@ -25,6 +26,7 @@ function App() {
             <Route path='/Fighters' element={<Fighters/>}/>
             <Route path='/Events'/>
             <Route path='/Fights'/>
+            <Route path='/Legends' element={<Legends/>}/>
           </Route>
           { /* Rutas protegidas para administradores */ }
           <Route element={<ProtectedAdmin/>}>
