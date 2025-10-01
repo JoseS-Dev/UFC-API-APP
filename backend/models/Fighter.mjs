@@ -7,12 +7,17 @@ export class ModelFighter{
     // Método para obtener a todos los luchadores
     static async getAllFighters(){
         const fighters = await db.query(
-            `SELECT * FROM fighters`
+            `SELECT f.*, t.*, wc.*, ft.*, fwc.* FROM fighters f
+            JOIN fighters_teams ft ON f.id = ft.fighter_id
+            JOIN teams t ON ft.team_id = t.id
+            JOIN fighters_weight_categories fwc ON f.id = fwc.fighter_id
+            JOIN weight_categories wc ON fwc.category_id = wc.id`
         );
         if(fighters.rowCount === 0) return {message: 'No hay luchadores registrados'};
         console.log("Luchadores obtenidos con éxito");
         const fightersWithoutExtra = fighters.rows.map(fighter =>
-            omit(fighter, ['is_blocked', 'created_at', 'updated_at'])
+            omit(fighter, ['is_blocked', 'created_at', 'updated_at', 
+                'category_id', 'team_id', 'fighter_id'])
         );
         return {data: fightersWithoutExtra};
     }

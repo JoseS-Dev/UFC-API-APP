@@ -11,3 +11,8 @@ export interface LoginData {
     email_user: string;
     password_user: string;
 }
+
+export interface UsersContextType {
+    user: UserData | null;
+    handleLogout: () => Promise<void>;
+}

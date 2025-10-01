@@ -6,17 +6,31 @@ const { omit } = pkg;
 export class ModelLegend {
     // método para obtener todas las leyendas
     static async getAllLegends(){
-        const legends = await db.query('SELECT * FROM legends_fighters');
+        const legends = await db.query(
+            `SELECT l.*, w.*, lwc.* FROM legends_fighters l
+            JOIN legends_weight_categories lwc ON l.id = lwc.legend_id
+            JOIN weight_categories w ON lwc.category_id = w.id`
+        );
         if(legends.rowCount === 0) return {message: 'No hay leyendas registradas'};
-        return {data: legends.rows};
+        const sanitizedLegends = legends.rows.map(legend => 
+            omit(legend, ['legend_id', 'category_id'])
+        )
+        return {data: sanitizedLegends};
     }
 
     // Método para obtener una leyenda por su ID
     static async getLegendById({id}){
         if(!id) return {error: 'ID de leyenda es requerido'};
-        const legend = await db.query(`SELECT * FROM legends_fighters WHERE id = $1`, [id]);
+        const legend = await db.query(
+            `SELECT l.*, w.* lwc.* FROM legends_fighters l
+            JOIN legends_weight_categories lwc ON l.id = lwc.legend_id
+            JOIN weight_categories w ON lwc.category_id = w.id
+            WHERE l.id = $1`, 
+            [id]
+        );
         if(legend.rowCount === 0) return {message: 'Leyenda no encontrada'};
-        return {data: legend.rows[0]};
+        const legendData = omit(legend.rows[0], ['legend_id', 'category_id']);
+        return {data: legendData};
     }
 
     // Método para obtener a todas las leyendas favoritas de un usuario

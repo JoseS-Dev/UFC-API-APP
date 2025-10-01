@@ -3,7 +3,7 @@ import { SideBar } from "../../components/SideBar"
 import { SectionHome } from "../../components/Home/SectionHome"
 import { useUserContext } from "../../context/UserContext"
 export function Home(){
-    const { user, handleLogout } = useUserContext();
+    const {user, handleLogout} = useUserContext()!;
     return (
         <div className="w-full h-screen flex flex-col items-center">
             <Header user={user}/>

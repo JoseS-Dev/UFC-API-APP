@@ -105,3 +105,17 @@ export const ImagesForservices = {
     'events': `${import.meta.env.VITE_APP_URL}/uploads/events`,
     'legends': `${import.meta.env.VITE_APP_URL}/uploads/legends`
 }
+
+// Lista de categorias de los luchadores
+export const CategoriesFighters = [
+    'all',
+    'flyweight',
+    'bantamweight',
+    'featherweight',
+    'lightweight',
+    'welterweight',
+    'middleweight',
+    'light heavyweight',
+    'heavyweight',
+    'women\'s division',
+]

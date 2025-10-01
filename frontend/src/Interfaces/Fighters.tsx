@@ -8,6 +8,8 @@ export interface FightersData {
     stance_fighter: string;
     country_fighter: string;
     image_fighter: string;
+    name_team: string;
+    name_category: string;
 }
 
 export interface FightersContextType {

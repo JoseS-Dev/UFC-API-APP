@@ -156,6 +156,15 @@ CREATE TABLE legends_users (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- Tabla intermedia de la relación muchos a muchos entre legends_fighters y weight_categories
+CREATE TABLE legends_weight_categories (
+    legend_id INT,
+    category_id INT,
+    PRIMARY KEY (legend_id, category_id),
+    FOREIGN KEY (legend_id) REFERENCES legends_fighters(id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES weight_categories(id) ON DELETE CASCADE
+);
+
 
 -- tabla de noticias
 CREATE TABLE notices (
